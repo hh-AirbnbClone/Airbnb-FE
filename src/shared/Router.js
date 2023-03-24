@@ -8,7 +8,7 @@ import Home from "../pages/Home";
 function Router() {
   return (
     <BrowserRouter>
-      <Header></Header>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

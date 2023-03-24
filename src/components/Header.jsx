@@ -13,11 +13,11 @@ function Header() {
       <StHeader>
         <Logo></Logo>
         <h2>여기에 페이지 제목이 들어갑니다.</h2>
-      </StHeader>
       <div>
         <button onClick={onClickModal}>로그인</button>
         {isOpen && <Login open={isOpen} />}
       </div>
+      </StHeader>
     </StHeaderWrapper>
   );
 }
