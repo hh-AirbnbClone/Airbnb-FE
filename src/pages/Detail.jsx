@@ -1,10 +1,11 @@
 import React from "react";
+import { StWrapperSmall } from "../components/Wrapper";
 
 function Detail() {
   return (
-    <>
-      <div>Detail</div>
-    </>
+    <StWrapperSmall>
+      
+    </StWrapperSmall>
   );
 }
 

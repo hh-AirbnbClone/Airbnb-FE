@@ -1,10 +1,14 @@
 import React from "react";
 import FooterMain from "../components/FooterMain";
+import Login from "../components/Login";
+import { StWrapperBig } from "../components/Wrapper";
 function Home() {
   return (
-    <>
-      <FooterMain></FooterMain>;
-    </>
+    <StWrapperBig>
+      <Login />
+
+      <FooterMain />;
+    </StWrapperBig>
   );
 }
 

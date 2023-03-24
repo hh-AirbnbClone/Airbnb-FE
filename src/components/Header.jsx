@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import Login from "./Login";
+import { Logo } from "./Logo";
 
 function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const onClickModal = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <StHeaderWrapper>
       <StHeader>
+        <Logo></Logo>
         <h2>여기에 페이지 제목이 들어갑니다.</h2>
       </StHeader>
+      <div>
+        <button onClick={onClickModal}>로그인</button>
+        {isOpen && <Login open={isOpen} />}
+      </div>
     </StHeaderWrapper>
   );
 }

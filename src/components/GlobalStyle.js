@@ -20,6 +20,22 @@ html {
 body{
   margin: 0;
 } 
+a {
+  text-decoration: none;
+  
+}
+svg{
+  width: auto;
+  height: auto;
+}
+
+:root {
+  --font-size-md: 1.5rem;
+  --font-size-base: 1.125rem;
+  --color-white: white; 
+  --color-mainColor: color: #ff385c;
+}
+
 `;
 
 export default GlobalStyle;

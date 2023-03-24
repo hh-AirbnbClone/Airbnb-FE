@@ -2,6 +2,7 @@ import axios from 'axios'
 import { cookies } from '../shared/cookies'
 
 
+
 const instance = axios.create({
     baseURL:process.env.REACT_APP_SERVER_URL,
     headers:{
