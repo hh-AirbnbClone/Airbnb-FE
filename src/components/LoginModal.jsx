@@ -8,7 +8,7 @@ let kakaoPopUp = null;
 function KakaoLoginModal() {
   const width = 350;
   const height = 600;
-  const left = window.innerWidth / 2 - width / 2;
+  const left = window.innerWidth / 2 - (width+(width/2)) / 2;
   const top = window.innerHeight / 2 - height / 2;
   kakaoPopUp = window.open(KAKAO_AUTH_URL, "_blank", `width=${width},height=${height},left=${left},top=${top},scrollbars=yes`);
 }
