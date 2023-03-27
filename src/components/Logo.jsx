@@ -17,6 +17,8 @@ export const Logo = () => {
 };
 
 const StSpan = styled.span`
+color: #ff385c;
+fill: #ff385c;
   display: block;
   width: 102px;
   height: 32px;
@@ -27,15 +29,19 @@ const StSpan = styled.span`
   box-sizing: border-box;
 `;
 const StSvg = styled.svg`
+width: 102px;
+height: 32px;
   overflow: hidden;
   box-sizing: border-box;
 `;
 
 const StCi = styled.path`
-  width: current;
-  height: current;
+width: 30px;
+height: 32px;
+
 `;
 const StLogo = styled.path`
-  width: current;
-  height: current;
+  width: 66pxs ;
+height: 17.5px;
+
 `;

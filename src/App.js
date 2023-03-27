@@ -3,13 +3,26 @@ import Router from "./shared/Router";
 import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
 import GlobalStyle from "./components/GlobalStyle";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+
 
 function App() {
+  const queryClient = new QueryClient();
+
   return (
     <>
+    <QueryClientProvider client={queryClient}>
       <GlobalStyle />
       <Router />
+      </QueryClientProvider>
     </>
+    
   );
 }
 

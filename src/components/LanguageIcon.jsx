@@ -15,22 +15,14 @@ export const LanguageIcon = () => {
 };
 
 const StSpan = styled.span`
-  display: block;
-  width: 102px;
-  height: 32px;
-  color: var(--color-mainColor);
-  width: current;
-  height: current;
+
 `;
 const StSvg = styled.svg`
-  width: current;
-  height: current;
+  width: 16px;
+  height: 16px;
 `;
 
-const StCi = styled.path`
-  width: current;
-  height: current;
-`;
+
 const StLogo = styled.path`
   width: current;
   height: current;
