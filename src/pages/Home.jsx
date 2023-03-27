@@ -7,11 +7,13 @@ import { History } from "@remix-run/router";
 import Slider from "react-slick";
 import {Column} from "../components/Flex"
 import {Row} from "../components/Flex"
+import {FlexGap} from "../components/Flex"
 import styled from "styled-components";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from "axios";
 import { useRoutes } from "react-router-dom";
+import Filter from "../components/Flter";
 import {
 
   QueryClientProvider,
@@ -27,99 +29,72 @@ function Home() {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1
   };
-  //얼리리턴
-  //if(!DumiData) return <div>로딩중...</div>
-  //react-query
 
-  //if(!data``) return <div>로딩중...</div>
-
-    const [data, setData] = useState([]);
+    const queryFn = async () => {
+      const response = await axios.get("http://54.180.98.74/rooms");
+      return response.data;
+    }
+    
+    const { data, isLoading, error } = useQuery(['rooms'], queryFn);
   
-    useEffect(() => {
-      axios.get("http://54.180.98.74/rooms")
-        .then(response => {
-          setData(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }, []);
+    if (isLoading) return <div>Loading...</div>;
   
+    if (error) return <div>Error: {error.message}</div>;
     return (
-      <Row>
+      <StMainWrap>
+        <Filter/>
+      <StWrapperBig>
+      <FlexGap>
         {data.map((data, index) => (
           
           <Box key={data.id} >
             <Link to={`/detail/${data.id}`}>
-            <h2>{data.title}</h2>
+            
+            <Slider className="mainBoxWrap" {...settings} style={{}}>
+              {data.imageList.map((imageUrl, index) => (
+                <div className="mainBox"  key={imageUrl.indexOf}>
+                  <img src={imageUrl} alt="property" />
+                </div >
+              ))}
+              
+            </Slider>
+             </Link>
+            <StPBold>Address: {data.address}</StPBold>
             <p>{data.description}</p>
             <p>Price: {data.price}</p>
             <p>Address: {data.address}</p>
             <p>Max Guests: {data.maxGuest}</p>
             <p>Host: {data.host}</p>
-            <Slider {...settings} style={{}}>
-              {data.imageList.map((imageUrl, index) => (
-                <div key={imageUrl.indexOf}>
-                  <img src={imageUrl} alt="property" />
-                </div>
-              ))}
-            </Slider>
-             </Link>
           </Box>
          
         ))}
-      </Row>
+      </FlexGap>
+      
+      </StWrapperBig >
+      <FooterMain/>
+      </StMainWrap>
     );
   }
 
 
-
-
-  // return (
-  //   <div>
-  //     <h1>Rooms</h1>
-  //     <ul>
-  //       {data.map(room => (
-  //         <li key={room.title}>{room.title}</li>
-  //       ))}
-  //     </ul>
-  //   </div>
-  // );
-  // return (
-  //   <StWrapperBig>
-
-      {/* < SliderDetail/> */}
-      {/* <Row>
-      {data.map((item) => (
-        <Box key={item.indexOf}>
-          <h2>{item.title}</h2>
-          <p>{item.description.description}</p>
-        
-        <Slider {...settings} style={{}}>
-        {item.imageList.map((imageUrl, index) => (
-          <div key={imageUrl.indexOf}>
-            <img src={imageUrl} alt="property" />
-          </div>
-        ))}
-      </Slider>
-      </Box>
-      ))}
-      </Row> */}
-    
-//       <FooterMain />
-//     </StWrapperBig>
-//   );
-// }
-
 export default Home;
 
 export const Box =styled.div`
-  width: 25%;
-  height: 25%;
-  border: 1px solid black;
-  border-radius: 10px;
+  width: 20%;
+  height: 30%;
+  flex: auto;
   gap: 1%;
 `
+export const StPBold = styled.p`
+  font-weight: 900;
+`
+export const StMainWrap = styled.div`
+  position: relative;
+`
+
+// export const Slider =styled.(Slider)`
+  
+// `

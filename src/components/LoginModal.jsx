@@ -1,26 +1,45 @@
+/*global Kakao*/ 
 import React from "react";
 import styled from "styled-components";
 import Home from "../pages/Home";
 import { cookies } from "../shared/cookies";
 import { KAKAO_AUTH_URL } from "../shared/kakoLogin";
-let kakaoPopUp = null;
+import {Login} from "../shared/kakoLogin";
+import { useEffect } from "react";
 
-function KakaoLoginModal() {
-  const width = 350;
-  const height = 600;
-  const left = window.innerWidth / 2 - width / 2;
-  const top = window.innerHeight / 2 - height / 2;
-  kakaoPopUp = window.open(KAKAO_AUTH_URL, "_blank", `width=${width},height=${height},left=${left},top=${top},scrollbars=yes`);
-}
-const token = cookies.get("token")
 
 
 function LoginModal({ setIsOpen, isOpen }) {
+
+  const handleKakaoLogin = () => {
+      const width = 350;
+  const height = 600;
+  const left = window.innerWidth / 2 - (width+(width/2)) / 2;
+  const top = window.innerHeight / 2 - height / 2;
+  window.open(KAKAO_AUTH_URL, "_blank", `width=${width},height=${height},left=${left},top=${top},scrollbars=yes`);
+
+    
+  }
+ 
+
+  // useEffect(() => {
+  //   const script = document.createElement("script");
+  //   script.src = "https://developers.kakao.com/sdk/js/kakao.js";
+  //   script.async = true;
+  //   document.body.appendChild(script);
+  //   return () => document.body.removeChild(script);
+  // }, []);
+
+
+  const token = cookies.get("token")
   if (token) return alert("이미 로그인을 하셨습니다.")
   return <div>
-  <KaKaoBtn  rel="noopener noreferrer" onClick={KakaoLoginModal}>
+  {/* <KaKaoBtn  rel="noopener noreferrer" onClick={KakaoLoginModal}>
   카카오 로그인하기
-</KaKaoBtn>
+</KaKaoBtn> */}
+<div onClick={handleKakaoLogin} >
+카카오톡으로 시작하기
+</div>
   </div>
 }
 
