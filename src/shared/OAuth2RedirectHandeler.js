@@ -16,7 +16,7 @@ function OAuth2RedirectHandeler() {
       cookies.set("token", res.headers.authorization.substr(7), {
         path: "/",
       });
-      nav("/");
+      nav("/#");
     } catch (e) {
       alert(e);
     }
@@ -27,3 +27,4 @@ function OAuth2RedirectHandeler() {
 }
 
 export default OAuth2RedirectHandeler;
+

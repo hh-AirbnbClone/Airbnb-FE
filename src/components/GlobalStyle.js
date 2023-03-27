@@ -36,7 +36,18 @@ svg{
   --color-white: white; 
   --color-mainColor: color: #ff385c;
 }
-
-`;
+.basicBox{
+  padding: 5%;
+  overflow: hidden;
+  box-sizing: border-box;
+ border :1px solid black ;
+}
+.basicBox{
+  padding: 5%;
+  overflow: hidden;
+  box-sizing: border-box;
+ border :1px solid black ;
+}
+`
 
 export default GlobalStyle;
