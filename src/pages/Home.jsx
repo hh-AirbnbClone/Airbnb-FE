@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import React from "react";
 import FooterMain from "../components/FooterMain";
 import { StWrapperBig } from "../components/Wrapper";
@@ -22,6 +24,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function Home() {
+
 
   const settings = {
     dots: true,

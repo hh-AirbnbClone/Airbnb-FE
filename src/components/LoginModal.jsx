@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 import Home from "../pages/Home";
 import { cookies } from "../shared/cookies";
 import { KAKAO_AUTH_URL } from "../shared/kakoLogin";
@@ -16,6 +17,7 @@ const token = cookies.get("token")
 
 
 function LoginModal({ setIsOpen, isOpen }) {
+
   if (token) return alert("이미 로그인을 하셨습니다.")
   return <div>
   <KaKaoBtn  rel="noopener noreferrer" onClick={KakaoLoginModal}>
@@ -26,28 +28,12 @@ function LoginModal({ setIsOpen, isOpen }) {
 
 export default LoginModal;
 
-const StModalWrapper = styled.div`
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9);
-`;
-
-const KaKaoBtn = styled.a``;
-
-const StModalOpen = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-const ModalBox = styled.div`
-  width: 300px;
-  height: 400px;
-  background-color: white;
-  border-radius: 30px;
+const KaKaoBtn = styled.a`
+  display: block;
+  
+  img {
+    display: block;
+    width: 60px;
+    height: auto;
+  }
 `;

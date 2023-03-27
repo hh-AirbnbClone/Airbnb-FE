@@ -7,6 +7,7 @@ import {SearchBox} from "./SearchBox";
 import {LanguageIcon} from "./LanguageIcon";
 
 function Header() {
+
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const token = cookies.get('token')
   console.log(token);
@@ -17,7 +18,7 @@ function Header() {
         <SearchBox/>
         <LanguageIcon/>
         <div>
-          <LoginModal/>
+          <LoginModal />
         </div>
 
       </StHeader>
