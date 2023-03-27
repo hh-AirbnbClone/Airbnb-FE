@@ -22,4 +22,4 @@ const SearchButton = () => {
   );
 };
 
-export default SerchButton;
+export default SearchButton;
