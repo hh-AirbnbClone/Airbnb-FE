@@ -1,18 +1,38 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Row } from "../components/Flex";
+import Modal from "./Modal";
 
 function Reservation() {
   const [stayCount, setStayCount] = useState(1);
-  const [price, setPrice] = useState(1);
   const [checkDate, setCheckDate] = useState({
     checkinDate: "날짜 추가",
     checkoutDate: "날짜 추가",
+  });
+  const [openModal, setOpenModal] = useState(false);
+  const { id } = useParams();
+
+  // return 사용
+  const { data, isLoading, isSuccess, isError } = useQuery({
+    queryKey: ["GET_DETAIL"],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `http://54.180.98.74/rooms/details/${id}`
+      );
+      return data;
+    },
   });
 
   const onCheckHandler = (e) => {
     const [name, value] = e.target;
     setCheckDate((pre) => ({ ...pre, [name]: value }));
+  };
+
+  // 날짜 수 가져오기
+  const toStayCount = (e) => {
+    setStayCount(e);
   };
 
   const reservationSuccess = () => {
@@ -21,7 +41,8 @@ function Reservation() {
   return (
     <ReservationWrapper>
       <div>
-        <strong>₩{Number().toLocaleString()}</strong> <span>/ 박</span>
+        <strong>₩{Number(data.data.price).toLocaleString()}</strong>{" "}
+        <span>/ 박</span>
       </div>
       {/* 날짜 인풋 */}
       <GuestSetting>
@@ -30,13 +51,25 @@ function Reservation() {
             <p>체크인</p>
             <input
               placeholder="날짜 추가"
-              name="checkinDate"
               value={checkDate.checkinDate}
+              name="checkinDate"
               type="text"
               onChange={onCheckHandler}
+              onClick={() => {
+                setOpenModal(true)
+              }}
             />
           </CheckInput>
-
+          {openModal && (
+            <Modal
+              toStayCount={toStayCount}
+              checkinDate={checkDate.checkinDate}
+              setOpenModal={setOpenModal}
+              toCheckinPut={onCheckHandler}
+              toCheckOut={onCheckHandler}
+              setCheckinDate={onCheckHandler}
+            />
+          )}
           <CheckInput check="out">
             <p>체크아웃</p>
             <input
@@ -58,7 +91,7 @@ function Reservation() {
       </GuestSetting>
       <TotalPrice>
         <h3>총 합계</h3>
-        <h3>₩{Number(stayCount * price).toLocaleString()}</h3>
+        <h3>₩{Number(stayCount * data.data.price).toLocaleString()}</h3>
       </TotalPrice>
     </ReservationWrapper>
   );

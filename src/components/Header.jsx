@@ -3,24 +3,20 @@ import styled from "styled-components";
 import { cookies } from "../shared/cookies";
 import LoginModal from "./LoginModal";
 import { Logo } from "./Logo";
-import {SearchBox} from "./SearchBox";
-import {LanguageIcon} from "./LanguageIcon";
+import { SearchBox } from "./SearchBox";
+import { LanguageIcon } from "./LanguageIcon";
 
 function Header() {
-
   const [isOpenLogin, setIsOpenLogin] = useState(false);
-  const token = cookies.get('token')
-  console.log(token);
+  const token = cookies.get("token");
   return (
     <StHeaderWrapper>
       <StHeader>
-        <Logo/>
-        <SearchBox/>
-        <LanguageIcon/>
+        <Logo />
+        <SearchBox />
         <div>
           <LoginModal />
         </div>
-
       </StHeader>
     </StHeaderWrapper>
   );
