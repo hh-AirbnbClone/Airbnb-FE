@@ -5,16 +5,13 @@ import LoginModal from "./LoginModal";
 import { Logo } from "./Logo";
 
 function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const token = cookies.get('token')
-  console.log(token);
   return (
     <StHeaderWrapper>
       <StHeader>
         <Logo></Logo>
         <h2>여기에 페이지 제목이 들어갑니다.</h2>
         <div>
-          <LoginModal/>
+          <LoginModal />
         </div>
       </StHeader>
     </StHeaderWrapper>
