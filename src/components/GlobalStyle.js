@@ -47,6 +47,36 @@ svg{
   overflow: hidden;
   box-sizing: border-box;
  border :1px solid black ;
+
+}
+.MainColor{
+  color: #ff385c;
+
+}
+.leteLine{
+  border-right: 1px solid #ddd;
+}
+.mainBoxWrap{
+  
+}
+.mainBox{
+  position: relative;
+  width: 100%;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  img{
+    position: absolute;
+  width: 100%;
+  height: 100%;
+
+  }
+  
+}
+.mainBox::after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
 }
 `
 

@@ -1,3 +1,4 @@
+/*global Kakao*/ 
 import React from "react";
 import Router from "./shared/Router";
 import Header from "../src/components/Header";
