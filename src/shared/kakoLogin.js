@@ -1,11 +1,9 @@
-
 /*global Kakao*/ 
 import { initKakao } from 'kakao-js-sdk';
 import { useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { cookies } from './cookies';
-
 
 const REST_API_KEY = "658cf70d3e0e9690b7343f3d1f06ff3a";
 const REDIRECT_URI = "http://3.34.181.44/auth/login";

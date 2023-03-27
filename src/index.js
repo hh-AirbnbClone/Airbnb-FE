@@ -1,14 +1,23 @@
-/*global Kakao*/ 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import store from './redux/config/configStore';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 0,
+      staleTime: 60 * 1000,
+    },
+    refetchOnWindowFocus: false,
+  },
+});
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
+  <QueryClientProvider client={queryClient}>
     <App />
-  </Provider>
+  </QueryClientProvider>
 );
-
