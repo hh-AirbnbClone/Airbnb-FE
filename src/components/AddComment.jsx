@@ -11,9 +11,10 @@ function AddComment() {
 
   const { mutate, isLoading } = useMutation({
     mutationFn: async (payload) => {
+      console.log("작성하기", payload);
       const { data } = await axios.post(
         `http://54.180.98.74/rooms/details/review/${id}`,
-        { payload: payload },
+        { review: payload },
         {
           headers: { Authorization: `Bearer ${cookies.get("token")}` },
         }
