@@ -1,17 +1,14 @@
 import React from "react";
 import FooterMain from "../components/FooterMain";
 import { StWrapperBig } from "../components/Wrapper";
-import SliderDetail from "../components/Slide";
 import { useQuery } from "@tanstack/react-query";
-import { History } from "@remix-run/router";
 import Slider from "react-slick";
-import {Column} from "../components/Flex"
-import {Row} from "../components/Flex"
+import {FlexGap} from "../components/Flex"
 import styled from "styled-components";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from "axios";
-import { useRoutes } from "react-router-dom";
+import Filter from "../components/Flter";
 import {
 
   QueryClientProvider,
@@ -76,43 +73,6 @@ function Home() {
   }
 
 
-
-
-  // return (
-  //   <div>
-  //     <h1>Rooms</h1>
-  //     <ul>
-  //       {data.map(room => (
-  //         <li key={room.title}>{room.title}</li>
-  //       ))}
-  //     </ul>
-  //   </div>
-  // );
-  // return (
-  //   <StWrapperBig>
-
-      {/* < SliderDetail/> */}
-      {/* <Row>
-      {data.map((item) => (
-        <Box key={item.indexOf}>
-          <h2>{item.title}</h2>
-          <p>{item.description.description}</p>
-        
-        <Slider {...settings} style={{}}>
-        {item.imageList.map((imageUrl, index) => (
-          <div key={imageUrl.indexOf}>
-            <img src={imageUrl} alt="property" />
-          </div>
-        ))}
-      </Slider>
-      </Box>
-      ))}
-      </Row> */}
-    
-//       <FooterMain />
-//     </StWrapperBig>
-//   );
-// }
 
 export default Home;
 
