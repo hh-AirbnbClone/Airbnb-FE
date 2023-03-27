@@ -2,10 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { Column, Row } from './Flex'
 
-export const SearchBox = () => {
+export const SearchBox = ({ onClose }) => {
+
   return (
-    <Row >
-        <div className='basicBox' >
+    <StSearchBoxWrapper onClick={onClose}>
+        <Row >
+        <div className='seachbox' >
             <NoneInput id="radio_1" type="radio" name="qna_1_group" value="1"/>
             <label htmlFor="radio_1">
                 <p>1</p>
@@ -25,23 +27,9 @@ export const SearchBox = () => {
                 <p>3</p>
             </label>                 
         </div>
-
-
-        <div className='basicBox' >
-            <NoneInput id="radio_4" type="radio" name="qna_1_group" value="4" />
-            <label htmlFor="radio_4">
-                <p>4</p>
-            </label>                 
-        </div>
-
-
-        <div className='basicBox' >
-            <NoneInput id="radio_5" type="radio" name="qna_1_group" value="5"/>
-            <label htmlFor="radio_5">
-                <p>5</p>
-            </label>                 
-        </div>
-</Row>
+        
+        </Row>
+    </StSearchBoxWrapper>
 
   )
 }
@@ -49,4 +37,7 @@ export const SearchBox = () => {
 
 const NoneInput =styled.input`
     display: none;
+`
+const StSearchBoxWrapper = styled.div`
+    
 `

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import DetailCalender from "./DetailCalender";
 
 
 function Modal({
@@ -11,6 +12,16 @@ function Modal({
 }) {
   return (
     <OpenModal>
+
+
+
+      <DetailCalender
+        toStayCount={toStayCount}
+        setOpenModal={setOpenModal}
+        toCheckinPut={toCheckinPut}
+        setCheckinDate={setCheckinDate}
+        toCheckOut={toCheckOut}
+      />
 
       <CloseModal onClick={() => setOpenModal(false)}>X</CloseModal>
     </OpenModal>
