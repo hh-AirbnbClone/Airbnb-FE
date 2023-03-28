@@ -8,6 +8,7 @@ import AddComment from "../components/review/AddComment";
 import Footer from "../components/footer/Footer";
 import Reservation from "../components/reservation/Reservation";
 import { StWrapperSmall } from "../components/Wrapper";
+import Header from "../components/header/Header";
 
 function Detail() {
   const { id } = useParams();
@@ -31,6 +32,8 @@ function Detail() {
 
   return (
     <DetailWrapper>
+      <Header />
+
       <StWrapperSmall>
         <Title>{data.data?.title}</Title>
         <div>{data.data?.address}</div>
@@ -118,9 +121,7 @@ function Detail() {
             <Reservation />
           </MainRight>
         </RoomMain>
-        {/* 후기 리스트 */}
         <CommentList />
-        {/* 후기 작성 */}
         <AddComment />
       </StWrapperSmall>
       <Footer />
@@ -131,7 +132,9 @@ function Detail() {
 export default Detail;
 
 const DetailWrapper = styled.div`
-  height: 100vh;
+  width: 1500px;
+  margin: 0 auto;
+
 `;
 const Title = styled.div`
   font-size: 35px;

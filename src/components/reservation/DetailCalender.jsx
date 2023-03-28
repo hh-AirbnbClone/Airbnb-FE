@@ -20,8 +20,6 @@ const DetailCalender = ({
   const [endDate, setEndDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState("startDate");
   const blockedDate = useState(blockedDates)[0];
-  //달력 한글화
-  moment.locale("ko");
 
   const closetNextBlockedDate = (target, blockedDates) => {
     const nextBlockedDate = blockedDates
@@ -59,22 +57,14 @@ const DetailCalender = ({
     }
   };
 
-  const clear = () => {
-    setStartDate(null);
-    setEndDate(null);
-    setFocusedInput("startDate");
-    updateStartDate("");
-    updateEndDate("");
-  };
-
-  // //TODO: endDate 값이 있다면 setOpenModal를 닫아라
+  // //TODO: endDate 값이 있다면 setOpenModal를 닫기
 
   const Today = moment().format().substring(0, 10);
   const checkinDay = new Date(startDate).toISOString().substring(0, 10);
   const checkoutDay = new Date(endDate).toISOString().substring(0, 10);
 
   //TODO: startDate 값을 input의 value 값으로 전달
-  //TODO: 체크인 기준 5일 전 날짜 구하여 넘겨준다.
+  //TODO: 체크인 기준 5일 전 날짜 구하여 넘겨줌
 
   const startDay = new Date(startDate);
   const endDay = new Date(endDate);
@@ -87,7 +77,6 @@ const DetailCalender = ({
         startDate={startDate}
         endDate={endDate}
         numberOfMonths={2}
-        minDate={2}
         onDatesChange={({ startDate, endDate }) => {
           setStartDate(startDate);
           setEndDate(endDate);
@@ -118,11 +107,7 @@ const DetailCalender = ({
       >
         확인
       </CheckButton>
-      <ClearButtonWrapper>
-        <ClearButton clearPosition={clearPosition} onClick={clear}>
-          날짜 지우기
-        </ClearButton>
-      </ClearButtonWrapper>
+      <ClearButtonWrapper></ClearButtonWrapper>
     </DatePickerSection>
   );
 };

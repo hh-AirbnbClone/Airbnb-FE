@@ -56,6 +56,7 @@ function Header({ children }) {
             {isOpenModal && <LoginModal setIsOpenModal={setIsOpenModal} />}
           </div>
         </Row>
+        <LoginModal />
       </StHeader>
     </StHeaderWrapper>
   );

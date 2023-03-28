@@ -15,6 +15,7 @@ import { TiHeartOutline } from "react-icons/ti";
 import { TiHeart } from "react-icons/ti";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Header from "../components/header/Header";
 
 function Home() {
   const settings = {
@@ -28,24 +29,7 @@ function Home() {
     nextArrow: <IoIosArrowDropright color="white" />,
     prevArrow: <IoIosArrowDropleft color="white" />,
   };
-  const Div = styled.div`
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    right: 16px;
-    z-index: 99;
-    text-align: right;
-    line-height: 30px;
-  `;
-  const DivPre = styled.div`
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    left: 16px;
-    z-index: 99;
-    text-align: left;
-    line-height: 30px;
-  `;
+
   const queryFn = async () => {
     const response = await axios.get("http://54.180.98.74/rooms");
     return response.data;
@@ -58,6 +42,7 @@ function Home() {
   if (error) return <div>Error: {error.message}</div>;
   return (
     <StMainWrap>
+      <Header />
       <Filter />
       <StWrapperBig>
         <FlexGap>
