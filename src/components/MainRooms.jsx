@@ -10,7 +10,7 @@ import axios from "axios";
 import {IoIosArrowDropleft, IoIosArrowDropright} from "react-icons/io"
 import {TiHeartOutline, TiHeart} from "react-icons/ti"
 import { Link } from 'react-router-dom';
-
+import {HeartIcon} from './HeartIcon';
 const MainRooms = () => {
     const settings = {
         dots: true,
@@ -30,9 +30,10 @@ const MainRooms = () => {
         const queryFn = async () => {
           const response = await axios.get("http://54.180.98.74/rooms");
           return response.data;
+         
         }
         
-        const { data, isLoading, error } = useQuery(['rooms'], queryFn);
+        const { data, isLoading, error } = useQuery(['rooms'], queryFn, {refetchOnWindowFocus: false});
       
         if (isLoading) return <div>Loading...</div>;
       
@@ -43,20 +44,19 @@ const MainRooms = () => {
       <FlexGap>
         {data.map((data, index) => ( 
           <Box key={data.id} >
-            <Link to={`/detail/${data.id}`}>
+            {/* <Link to={`/detail/${data.id}`}> */}
             <Slider className="mainBoxWrap" {...settings} style={{}}>
               {data.imageList.map((imageUrl, index) => (
                 <div className="mainBox"  key={imageUrl.indexOf}>
                   <IoIosArrowDropleft className="left arrow" color="white"/>
                   <IoIosArrowDropright className="right arrow" color="white"/>
-                  <TiHeartOutline className="heart"/>
-                  <TiHeart className="heart tiheart"/>
+                    <HeartIcon></HeartIcon>
                   <div className="slick-dots"></div>
                   <img src={imageUrl} alt="property" />
                 </div >
               ))} 
             </Slider>
-             </Link>
+             {/* </Link> */}
             <StTextWrap>
             <StPBold>{data.title}</StPBold>
             <StPBold>{data.address}</StPBold>

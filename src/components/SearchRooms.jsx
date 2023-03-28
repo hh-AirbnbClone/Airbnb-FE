@@ -1,4 +1,4 @@
-import queryFnSearch from '../components/Header';
+import queryFnSearch from '../components/header/Header'
 import React from 'react'
 import { StWrapperBig } from "../components/Wrapper";
 import { useQuery } from "@tanstack/react-query";
@@ -8,12 +8,12 @@ import styled from "styled-components";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import {IoIosArrowDropleft, IoIosArrowDropright} from "react-icons/io"
-import {TiHeartOutline, TiHeart} from "react-icons/ti"
 import { Link } from 'react-router-dom';
+import {HeartIcon} from '../components/HeartIcon';
 function SearchRooms({ address, checkInDate, checkOutDate, guestNum }) {
   const { data: roomData, isLoading, error } = useQuery(
     ['roomsSearch', address, checkInDate, checkOutDate, guestNum],
-    queryFnSearch
+    queryFnSearch,{refetchOnWindowFocus: false}
   );
   const settings = {
     dots: true,
@@ -42,8 +42,7 @@ function SearchRooms({ address, checkInDate, checkOutDate, guestNum }) {
               <div className="mainBox"  key={imageUrl.indexOf}>
                 <IoIosArrowDropleft className="left arrow" color="white"/>
                 <IoIosArrowDropright className="right arrow" color="white"/>
-                <TiHeartOutline className="heart"/>
-                <TiHeart className="heart tiheart"/>
+                <HeartIcon/>
                 <div className="slick-dots"></div>
                 <img src={imageUrl} alt="property" />
               </div >

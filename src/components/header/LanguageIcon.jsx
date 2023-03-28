@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Column } from "./Flex";
+import { Column } from "../Flex";
 
 export const LanguageIcon = () => {
   return (

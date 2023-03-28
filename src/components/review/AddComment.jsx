@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { cookies } from "../shared/cookies";
+import { cookies } from "../../shared/cookies";
 
 function AddComment() {
   const [review, setReview] = useState([]);

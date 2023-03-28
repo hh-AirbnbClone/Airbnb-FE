@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Column, Row } from './Flex'
-import HomeCalendar from './HomeCalendar'
+import { Column, Row } from '../Flex'
+import HomeCalendar from '../HomeCalendar'
 
 export const SearchBox = ({ onClose }) => {
     
@@ -14,7 +14,6 @@ export const SearchBox = ({ onClose }) => {
             {/* <HomeCalendar/> */}
         </Row>
     </StSearchBoxWrapper>
-
   )
 }
 

@@ -1,28 +1,22 @@
 import React from "react";
-import FooterMain from "../components/FooterMain";
-import {FlexGap} from "../components/Flex"
+import FooterMain from "../components/footer/FooterMain";
 import styled from "styled-components";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Filter from "../components/Flter";
+// import SearchRooms from "../components/SearchRooms";
+import Header from "../components/header/Header";
 import MainRooms from "../components/MainRooms";
-import SearchRooms from "../components/MainRooms";
-import Header from "../components/Header";
-import { useState } from "react";
+
 
 function Home() {
-  const [showhRooms, setShowSearchRooms] = useState(false);
     return (
       <>
-      <Header
-        showSearchRooms={showhRooms}
-        setShowSearchRooms={setShowSearchRooms}
-      />
+      <Header/>
       <StMainWrap>
         <Filter/>
-        <SearchRooms /> 
-         {/* <MainRooms /> */}
-        {/* {showhRooms ? <SearchRooms /> : <MainRooms />} */}
+        {/* <SearchRooms />  */}
+        <MainRooms /> 
         <FooterMain/>
       </StMainWrap>
       </>

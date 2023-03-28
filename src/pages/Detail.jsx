@@ -3,10 +3,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import CommentList from "../components/CommentList";
-import AddComment from "../components/AddComment";
-import Footer from "../components/Footer";
-import Reservation from "../components/Reservation";
+import CommentList from "../components/review/CommentList";
+import AddComment from "../components/review/AddComment";
+import Footer from "../components/footer/Footer";
+import Reservation from "../components/reservation/Reservation";
 import { StWrapperSmall } from "../components/Wrapper";
 
 function Detail() {
