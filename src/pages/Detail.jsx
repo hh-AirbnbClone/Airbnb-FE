@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import CommentList from "../components/review/CommentList";
@@ -8,6 +8,7 @@ import AddComment from "../components/review/AddComment";
 import Footer from "../components/footer/Footer";
 import Reservation from "../components/reservation/Reservation";
 import { StWrapperSmall } from "../components/Wrapper";
+import Header from "../components/header/Header";
 
 function Detail() {
   const { id } = useParams();
@@ -31,6 +32,8 @@ function Detail() {
 
   return (
     <DetailWrapper>
+      <Header />
+
       <StWrapperSmall>
         <Title>{data.data?.title}</Title>
         <div>{data.data?.address}</div>
@@ -109,7 +112,7 @@ function Detail() {
                 <button>더 알아보기</button>
               </DetailDescription>
               <RoomIcon>
-                <div>{data.data?.description}</div>
+                <RoomDescription>{data.data?.description}</RoomDescription>
               </RoomIcon>
             </CheckInfo>
             <RoomAmenity></RoomAmenity>
@@ -118,9 +121,7 @@ function Detail() {
             <Reservation />
           </MainRight>
         </RoomMain>
-        {/* 후기 리스트 */}
         <CommentList />
-        {/* 후기 작성 */}
         <AddComment />
       </StWrapperSmall>
       <Footer />
@@ -131,7 +132,8 @@ function Detail() {
 export default Detail;
 
 const DetailWrapper = styled.div`
-  height: 100vh;
+  width: 1500px;
+  margin: 0 auto;
 `;
 const Title = styled.div`
   font-size: 35px;
@@ -209,7 +211,7 @@ const RoomIcon = styled.div`
   align-items: center;
   margin-bottom: 28px;
   img {
-    width: 30px;
+    width: 50px;
     height: 30px;
     margin-right: 10px;
   }
@@ -222,9 +224,11 @@ const RoomIcon = styled.div`
   }
 `;
 
+const RoomDescription = styled.span`
+  margin: 10px 0;
+  font-size: 20px;
+`;
 const RoomIconWrap = styled.div`
   border-bottom: 1px solid lightgray;
 `;
-const RoomAmenity =styled.div`
-  
-`
+const RoomAmenity = styled.div``;

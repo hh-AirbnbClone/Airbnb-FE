@@ -14,14 +14,11 @@ export const LanguageIcon = () => {
   );
 };
 
-const StSpan = styled.span`
-
-`;
+const StSpan = styled.span``;
 const StSvg = styled.svg`
   width: 16px;
   height: 16px;
 `;
-
 
 const StLogo = styled.path`
   width: current;
