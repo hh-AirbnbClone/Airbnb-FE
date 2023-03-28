@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import CommentList from "../components/CommentList";
-import AddComment from "../components/AddComment";
-import Footer from "../components/Footer";
-import Reservation from "../components/Reservation";
+import CommentList from "../components/review/CommentList";
+import AddComment from "../components/reservation/AddComment";
+import Footer from "../components/footer/Footer";
+import Reservation from "../components/reservation/Reservation";
 import { StWrapperSmall } from "../components/Wrapper";
 
 function Detail() {
@@ -225,6 +225,4 @@ const RoomIcon = styled.div`
 const RoomIconWrap = styled.div`
   border-bottom: 1px solid lightgray;
 `;
-const RoomAmenity =styled.div`
-  
-`
+const RoomAmenity = styled.div``;

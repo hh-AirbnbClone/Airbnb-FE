@@ -7,13 +7,11 @@ import Modal from "./Modal";
 
 function Reservation() {
   const [stayCount, setStayCount] = useState(1);
-  const [checkDate, setCheckDate] = useState({
-    checkinDate: "날짜 추가",
-    checkoutDate: "날짜 추가",
-  });
+
+  const [checkinDate, setCheckinDate] = useState("날짜 추가");
+  const [checkoutDate, setCheckoutDate] = useState("날짜 추가");
   const [openModal, setOpenModal] = useState(false);
   const { id } = useParams();
-
   // return 사용
   const { data, isLoading, isSuccess, isError } = useQuery({
     queryKey: ["GET_DETAIL"],
@@ -25,11 +23,14 @@ function Reservation() {
     },
   });
 
-  const onCheckHandler = (e) => {
-    const [name, value] = e.target;
-    setCheckDate((pre) => ({ ...pre, [name]: value }));
+  // checkin input값 가져오기
+  const toCheckinPut = (e) => {
+    setCheckinDate(e);
   };
-
+  // checkout input값 가져오기
+  const toCheckOut = (e) => {
+    setCheckoutDate(e);
+  };
   // 날짜 수 가져오기
   const toStayCount = (e) => {
     setStayCount(e);
@@ -40,6 +41,7 @@ function Reservation() {
   };
   return (
     <ReservationWrapper>
+      <SubTitle>여행 날짜를 선택해 정확한 금액을 확인해보세요</SubTitle>
       <div>
         <strong>₩{Number(data.data.price).toLocaleString()}</strong>{" "}
         <span>/ 박</span>
@@ -51,33 +53,33 @@ function Reservation() {
             <p>체크인</p>
             <input
               placeholder="날짜 추가"
-              value={checkDate.checkinDate}
+              value={checkinDate}
               name="checkinDate"
               type="text"
-              onChange={onCheckHandler}
+              onChange={toCheckinPut}
               onClick={() => {
-                setOpenModal(true)
+                setOpenModal(true);
               }}
             />
           </CheckInput>
           {openModal && (
             <Modal
               toStayCount={toStayCount}
-              checkinDate={checkDate.checkinDate}
+              checkinDate={checkinDate}
               setOpenModal={setOpenModal}
-              toCheckinPut={onCheckHandler}
-              toCheckOut={onCheckHandler}
-              setCheckinDate={onCheckHandler}
+              toCheckinPut={toCheckinPut}
+              toCheckOut={toCheckOut}
+              setCheckinDate={setCheckinDate}
             />
           )}
           <CheckInput check="out">
             <p>체크아웃</p>
             <input
               placeholder="날짜 추가"
-              value={checkDate.checkoutDate}
+              value={checkoutDate}
               name="checkoutDate"
               type="text"
-              onChange={onCheckHandler}
+              onChange={toCheckOut}
             />
           </CheckInput>
         </DayInput>
@@ -188,4 +190,11 @@ const TotalPrice = styled.div`
   padding: 18px 0;
   font-size: 18px;
   font-weight: 500;
+`;
+
+const SubTitle = styled.h4`
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  color: ${({ theme }) => theme.fontColorGray};
 `;
