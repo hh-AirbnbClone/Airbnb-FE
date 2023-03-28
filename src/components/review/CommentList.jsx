@@ -16,9 +16,9 @@ function CommentList() {
       const { data } = await axios.get(
         `http://54.180.98.74/rooms/details/${id}`
       );
-      console.log(data.data);
       return data;
     },
+    refetchOnWindowFocus: false,
   });
   if (!data || isLoading) return <div>로딩중...</div>;
   return (
