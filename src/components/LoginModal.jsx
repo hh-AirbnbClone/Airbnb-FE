@@ -5,9 +5,7 @@ import { KAKAO_AUTH_URL } from "../shared/kakoLogin";
 
 function LoginModal({ setIsOpen, isOpen }) {
   const token = cookies.get("token");
-  useEffect(() => {
-    if (token) return alert("이미 로그인을 하셨습니다.");
-  }, []);
+
   return (
     <div>
       {token ? (

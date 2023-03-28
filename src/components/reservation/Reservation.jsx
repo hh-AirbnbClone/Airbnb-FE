@@ -12,9 +12,7 @@ function Reservation() {
   const [checkInDate, setCheckinDate] = useState("날짜 추가");
   const [checkOutDate, setCheckoutDate] = useState("날짜 추가");
   const [openModal, setOpenModal] = useState(false);
-  const [inputPeople, setInputPeople] = useState("");
-
-  console.log(checkInDate, checkOutDate, inputPeople);
+  const [inputPeople, setInputPeople] = useState(0);
 
   const { id } = useParams();
   // return 사용
@@ -44,10 +42,12 @@ function Reservation() {
   const toStayCount = (e) => {
     setStayCount(e);
   };
+  if (toCheckinPut > toCheckOut) {
+    alert("날짜를 다시 선택해주세요");
+  }
 
-  const { mutate, onError } = useMutation({
+  const { mutate, isError, isSuccess } = useMutation({
     mutationFn: async (payload) => {
-      console.log("예약하기", payload);
       const { data } = await axios.post(
         `http://54.180.98.74/rooms/details/reservation/${id}`,
         {
@@ -61,13 +61,14 @@ function Reservation() {
       );
       return data;
     },
-    onSuccess: () => {
-      alert("예약 완료");
+    onSuccess: (res) => {
+      alert(res.message);
       queryClinet.invalidateQueries({ queryKey: ["GET_DETAIL"] }); // GET 요청을 다시함
     },
-    onError: () => {
-      alert("로그인을 해주세요.");
+    onError: (res) => {
+      alert(res.response.data.message);
     },
+    refetchOnWindowFocus: false,
   });
 
   return (
@@ -124,14 +125,14 @@ function Reservation() {
             value={inputPeople}
             name="inputPeople"
             onChange={toCheckPeople}
-            style={{ width: "348px", height: "50" }}
+            style={{
+              width: "350px",
+              height: "55px",
+              borderRadius: "0 0 5px 5px",
+            }}
           >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
+            <option value="1">인원수: 1명</option>
+            <option value="2">인원수: 2명</option>
           </select>
         </CheckGuest>
         <ReservationButton>예약 하기</ReservationButton>
@@ -186,6 +187,9 @@ const CheckGuest = styled.div`
   width: 348px;
   height: 56px;
   border: 1px solid rgb(113, 113, 113);
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   cursor: pointer;
@@ -211,6 +215,9 @@ const CheckGuest = styled.div`
     right: 12px;
     width: 16px;
     height: 16px;
+  }
+  select option {
+    text-align: center;
   }
 `;
 

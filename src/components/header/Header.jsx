@@ -25,7 +25,6 @@ function Header({ children }) {
     e.stopPropagation();
   };
   const token = cookies.get("token");
-  console.log(token);
   return (
     <StHeaderWrapper onClick={handleModalClick}>
       <StHeader>

@@ -112,7 +112,7 @@ function Detail() {
                 <button>더 알아보기</button>
               </DetailDescription>
               <RoomIcon>
-                <div>{data.data?.description}</div>
+                <RoomDescription>{data.data?.description}</RoomDescription>
               </RoomIcon>
             </CheckInfo>
             <RoomAmenity></RoomAmenity>
@@ -134,7 +134,6 @@ export default Detail;
 const DetailWrapper = styled.div`
   width: 1500px;
   margin: 0 auto;
-
 `;
 const Title = styled.div`
   font-size: 35px;
@@ -212,7 +211,7 @@ const RoomIcon = styled.div`
   align-items: center;
   margin-bottom: 28px;
   img {
-    width: 30px;
+    width: 50px;
     height: 30px;
     margin-right: 10px;
   }
@@ -225,6 +224,10 @@ const RoomIcon = styled.div`
   }
 `;
 
+const RoomDescription = styled.span`
+  margin: 10px 0;
+  font-size: 20px;
+`;
 const RoomIconWrap = styled.div`
   border-bottom: 1px solid lightgray;
 `;
