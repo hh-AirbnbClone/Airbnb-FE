@@ -28,4 +28,4 @@ function OAuth2RedirectHandeler() {
   }, []);
 }
 
-export default OAuth2RedirectHandeler;
+export default OAuth2RedirectHandeler
