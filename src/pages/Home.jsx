@@ -1,111 +1,31 @@
 import React from "react";
 import FooterMain from "../components/FooterMain";
-import { StWrapperBig } from "../components/Wrapper";
-import { useQuery } from "@tanstack/react-query";
-import Slider from "react-slick";
 import {FlexGap} from "../components/Flex"
 import styled from "styled-components";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import axios from "axios";
 import Filter from "../components/Flter";
-import {IoIosArrowDropleft} from "react-icons/io"
-import {IoIosArrowDropright} from "react-icons/io"
-import {TiHeartOutline} from "react-icons/ti"
-import {TiHeart} from "react-icons/ti"
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import MainRooms from "../components/MainRooms";
+import SearchRooms from "../components/MainRooms";
+import Header from "../components/Header";
+import { useState } from "react";
 
 function Home() {
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    pauseOnHover : true,	
-    dotsClass : "slick-dots", 
-    nextArrow: (
-
-        <IoIosArrowDropright  color="white"/>
-
-    ),
-    prevArrow: (
-
-        <IoIosArrowDropleft color="white"/>
-
-    ),
-  };
-  const Div = styled.div`
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  right: 16px;
-  z-index: 99;
-  text-align: right;
-  line-height: 30px;
-`;
-const DivPre = styled.div`
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  left: 16px;
-  z-index: 99;
-  text-align: left;
-  line-height: 30px;
-`;
-    const queryFn = async () => {
-      const response = await axios.get("http://54.180.98.74/rooms");
-      return response.data;
-    }
-    
-    const { data, isLoading, error } = useQuery(['rooms'], queryFn);
-  
-    if (isLoading) return <div>Loading...</div>;
-  
-    if (error) return <div>Error: {error.message}</div>;
+  const [showhRooms, setShowSearchRooms] = useState(false);
     return (
+      <>
+      <Header
+        showSearchRooms={showhRooms}
+        setShowSearchRooms={setShowSearchRooms}
+      />
       <StMainWrap>
         <Filter/>
-      <StWrapperBig>
-      <FlexGap>
-        {data.map((data, index) => (
-          
-          <Box key={data.id} >
-            <Link to={`/detail/${data.id}`}>
-            
-            <Slider className="mainBoxWrap" {...settings} style={{}}>
-              {data.imageList.map((imageUrl, index) => (
-                <div className="mainBox"  key={imageUrl.indexOf}>
-                  <IoIosArrowDropleft className="left arrow" color="white"/>
-                  <IoIosArrowDropright className="right arrow" color="white"/>
-                  <TiHeartOutline className="heart"/>
-                  <TiHeart className="heart tiheart"/>
-                  <div className="slick-dots"></div>
-                  <img src={imageUrl} alt="property" />
-                  
-                </div >
-              ))}
-              
-            </Slider>
-             </Link>
-            <StTextWrap>
-            <StPBold>{data.title}</StPBold>
-            <StPBold>{data.address}</StPBold>
-            <StPGray>{data.description}</StPGray>
-            <StPGray>최대 인원 {data.maxGuest}</StPGray>
-            <StPBold className="paddingBottom">₩ {data.price}<StSpanGray>/박</StSpanGray></StPBold>
-            </StTextWrap>
-          </Box>
-         
-        ))}
-      </FlexGap>
-      
-      </StWrapperBig >
-      <FooterMain/>
+        <SearchRooms /> 
+         {/* <MainRooms /> */}
+        {/* {showhRooms ? <SearchRooms /> : <MainRooms />} */}
+        <FooterMain/>
       </StMainWrap>
+      </>
     );
   }
 
@@ -138,8 +58,3 @@ export const StTextWrap = styled.div`
   overflow: hidden;
   box-sizing: border-box;
 `
-
-
-// export const Slider =styled.(Slider)`
-  
-// `

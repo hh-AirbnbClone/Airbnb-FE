@@ -34,13 +34,13 @@ function LoginModal({ setIsOpen, isOpen }) {
   const token = cookies.get("token")
   if (token) return alert("이미 로그인을 하셨습니다.")
   return <div>
-  {/* <KaKaoBtn  rel="noopener noreferrer" onClick={KakaoLoginModal}>
-  카카오 로그인하기
-</KaKaoBtn> */}
-<div onClick={handleKakaoLogin} >
-카카오톡으로 시작하기
+      {/* <KaKaoBtn  rel="noopener noreferrer" onClick={KakaoLoginModal}>
+      카카오 로그인하기
+    </KaKaoBtn> */}
+      {/* <div onClick={handleKakaoLogin} >
+      카카오톡으로 시작하기
+      </div> */}
 </div>
-  </div>
 }
 
 export default LoginModal;
