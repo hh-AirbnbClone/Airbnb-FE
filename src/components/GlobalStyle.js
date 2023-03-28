@@ -69,14 +69,48 @@ svg{
     position: absolute;
   width: 100%;
   height: 100%;
-
+  z-index: 1;
   }
   
 }
+/* slider */
 .mainBox::after {
   content: "";
   display: block;
   padding-bottom: 100%;
+}
+.arrow{
+  position: absolute; z-index: 3;
+}
+
+.left{right: -50% !important;}
+.right{left: -50% !important;}
+.slick-prev{left: 2% !important;z-index: 3;opacity: 0;}
+.slick-next{right:2% !important;opacity: 0;}
+.slick-prev:hover{opacity: 1; transition: all 0.3s}
+.slick-next:hover{opacity: 1; transition: all 0.3s}
+
+.slick-dots{position: absolute; z-index: 3; bottom: 6%; color:white;font-size:5px}
+.slick-dots li.slick-active button:before{color: white;}
+.slick-dots li button:before{color: white; width:5px; height:5px;font-size:5px}
+.slick-dots li{width: 5px;height:5px}
+.heart{
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  z-index: 3;
+  color: white;
+}
+.tiheart{
+  z-index: 2;
+  opacity: 0.9!important;
+
+  fill:rgba(0,0,0,0.5)
+}
+.paddingBottom{
+  padding-bottom: 17%;
 }
 `
 
