@@ -1,19 +1,24 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { cookies } from "../../shared/cookies";
 import Modal from "./Modal";
 
 function Reservation() {
   const [stayCount, setStayCount] = useState(1);
-
-  const [checkinDate, setCheckinDate] = useState("날짜 추가");
-  const [checkoutDate, setCheckoutDate] = useState("날짜 추가");
+  const queryClinet = useQueryClient();
+  const [checkInDate, setCheckinDate] = useState("날짜 추가");
+  const [checkOutDate, setCheckoutDate] = useState("날짜 추가");
   const [openModal, setOpenModal] = useState(false);
+  const [inputPeople, setInputPeople] = useState("");
+
+  console.log(checkInDate, checkOutDate, inputPeople);
+
   const { id } = useParams();
   // return 사용
-  const { data, isLoading, isSuccess, isError } = useQuery({
+  const { data } = useQuery({
     queryKey: ["GET_DETAIL"],
     queryFn: async () => {
       const { data } = await axios.get(
@@ -31,14 +36,40 @@ function Reservation() {
   const toCheckOut = (e) => {
     setCheckoutDate(e);
   };
+  // 인원수 input값 가져오기
+  const toCheckPeople = (e) => {
+    setInputPeople(e.target.value);
+  };
   // 날짜 수 가져오기
   const toStayCount = (e) => {
     setStayCount(e);
   };
 
-  const reservationSuccess = () => {
-    alert("예약이 완료되었습니다.");
-  };
+  const { mutate, onError } = useMutation({
+    mutationFn: async (payload) => {
+      console.log("예약하기", payload);
+      const { data } = await axios.post(
+        `http://54.180.98.74/rooms/details/reservation/${id}`,
+        {
+          checkInDate: payload.checkInDate,
+          checkOutDate: payload.checkOutDate,
+          guestNum: payload.inputPeople,
+        },
+        {
+          headers: { Authorization: `Bearer ${cookies.get("token")}` },
+        }
+      );
+      return data;
+    },
+    onSuccess: () => {
+      alert("예약 완료");
+      queryClinet.invalidateQueries({ queryKey: ["GET_DETAIL"] }); // GET 요청을 다시함
+    },
+    onError: () => {
+      alert("로그인을 해주세요.");
+    },
+  });
+
   return (
     <ReservationWrapper>
       <SubTitle>여행 날짜를 선택해 정확한 금액을 확인해보세요</SubTitle>
@@ -47,14 +78,19 @@ function Reservation() {
         <span>/ 박</span>
       </div>
       {/* 날짜 인풋 */}
-      <GuestSetting>
+      <GuestSetting
+        onSubmit={(e) => {
+          e.preventDefault();
+          mutate({ checkInDate, checkOutDate, inputPeople });
+        }}
+      >
         <DayInput>
           <CheckInput check="in">
             <p>체크인</p>
             <input
               placeholder="날짜 추가"
-              value={checkinDate}
-              name="checkinDate"
+              value={checkInDate}
+              name="checkInDate"
               type="text"
               onChange={toCheckinPut}
               onClick={() => {
@@ -65,7 +101,7 @@ function Reservation() {
           {openModal && (
             <Modal
               toStayCount={toStayCount}
-              checkinDate={checkinDate}
+              checkinDate={checkInDate}
               setOpenModal={setOpenModal}
               toCheckinPut={toCheckinPut}
               toCheckOut={toCheckOut}
@@ -76,20 +112,29 @@ function Reservation() {
             <p>체크아웃</p>
             <input
               placeholder="날짜 추가"
-              value={checkoutDate}
-              name="checkoutDate"
+              value={checkOutDate}
+              name="checkOutDate"
               type="text"
               onChange={toCheckOut}
             />
           </CheckInput>
         </DayInput>
         <CheckGuest>
-          <p>인원</p>
-          <input type="text" min="1" max="10" placeholder={`게스트 {}명`} />
+          <select
+            value={inputPeople}
+            name="inputPeople"
+            onChange={toCheckPeople}
+            style={{ width: "348px", height: "50" }}
+          >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
         </CheckGuest>
-        <ReservationButton onClick={reservationSuccess}>
-          예약 하기
-        </ReservationButton>
+        <ReservationButton>예약 하기</ReservationButton>
       </GuestSetting>
       <TotalPrice>
         <h3>총 합계</h3>
@@ -111,7 +156,7 @@ const DayInput = styled.div`
   display: flex;
   width: 350px;
 `;
-const GuestSetting = styled.div``;
+const GuestSetting = styled.form``;
 const CheckInput = styled.div`
   position: relative;
   margin: 0;
