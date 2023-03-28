@@ -4,7 +4,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import CommentList from "../components/review/CommentList";
-import AddComment from "../components/reservation/AddComment";
+import AddComment from "../components/review/AddComment";
 import Footer from "../components/footer/Footer";
 import Reservation from "../components/reservation/Reservation";
 import { StWrapperSmall } from "../components/Wrapper";

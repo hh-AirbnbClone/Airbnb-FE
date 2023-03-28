@@ -1,5 +1,5 @@
 import React from "react";
-import FooterMain from "../components/FooterMain";
+import FooterMain from "../components/footer/FooterMain";
 import { StWrapperBig } from "../components/Wrapper";
 import { useQuery } from "@tanstack/react-query";
 import Slider from "react-slick";
