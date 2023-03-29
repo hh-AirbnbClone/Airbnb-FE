@@ -13,6 +13,8 @@ function CommentList() {
       const { data } = await axios.get(
         `http://54.180.98.74/rooms/details/${id}`
       );
+
+      
       return data;
     },
   });
