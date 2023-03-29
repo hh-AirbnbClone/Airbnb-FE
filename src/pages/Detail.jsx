@@ -59,6 +59,28 @@ function Detail() {
         <RoomMain>
           <MainLeft>
             <CheckInfo>
+              <RoomIcon>
+                <div>
+                  <p
+                    style={{
+                      fontSize: "25px",
+                      color: "#000",
+                    }}
+                  >
+                    {data.data.host}님이 호스팅하는 펜션
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "15px",
+                      lineHeight: "200%",
+                      color: "#484747",
+                    }}
+                  >
+                    최대 인원 {data.data.maxGuest}명 침실 1개 · 침대 · 1개 ·
+                    욕실 1개
+                  </p>
+                </div>
+              </RoomIcon>
               <RoomIconWrap>
                 <RoomIcon>
                   <img
@@ -121,8 +143,10 @@ function Detail() {
             <Reservation />
           </MainRight>
         </RoomMain>
-        <CommentList />
-        <AddComment />
+        <CommentWrapper>
+          <CommentList />
+          <AddComment />
+        </CommentWrapper>
       </StWrapperSmall>
       <Footer />
     </DetailWrapper>
@@ -192,6 +216,7 @@ const RoomMain = styled.div`
   display: flex;
   justify-content: space-between;
   width: 1065px;
+  border-bottom: 1px solid lightgray;
 `;
 const MainLeft = styled.div`
   width: 626.5px;
@@ -232,3 +257,7 @@ const RoomIconWrap = styled.div`
   border-bottom: 1px solid lightgray;
 `;
 const RoomAmenity = styled.div``;
+const CommentWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;

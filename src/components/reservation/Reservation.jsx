@@ -9,8 +9,8 @@ import Modal from "./Modal";
 function Reservation() {
   const [stayCount, setStayCount] = useState(1);
   const queryClinet = useQueryClient();
-  const [checkInDate, setCheckinDate] = useState("날짜 추가");
-  const [checkOutDate, setCheckoutDate] = useState("날짜 추가");
+  const [checkInDate, setCheckinDate] = useState("");
+  const [checkOutDate, setCheckoutDate] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [inputPeople, setInputPeople] = useState(0);
 
@@ -66,7 +66,13 @@ function Reservation() {
       queryClinet.invalidateQueries({ queryKey: ["GET_DETAIL"] }); // GET 요청을 다시함
     },
     onError: (res) => {
-      alert(res.response.data.message);
+      if (res.response.data.statusCode == 401) {
+        alert("로그인을 해주세요.");
+      } else if (res.response.data.status == 500) {
+        alert("예약정보를 입력해주세요.");
+      } else {
+        alert(res.response.data.message);
+      }
     },
     refetchOnWindowFocus: false,
   });
@@ -133,6 +139,10 @@ function Reservation() {
           >
             <option value="1">인원수: 1명</option>
             <option value="2">인원수: 2명</option>
+            <option value="3">인원수: 3명</option>
+            <option value="4">인원수: 4명</option>
+            <option value="5">인원수: 5명</option>
+            <option value="6">인원수: 6명</option>
           </select>
         </CheckGuest>
         <ReservationButton>예약 하기</ReservationButton>
@@ -230,9 +240,11 @@ const ReservationButton = styled.button`
   font-size: 16px;
   font-weight: 600;
   border-radius: 8px;
+  background-color: #e2165e;
   cursor: pointer;
   &:hover {
-    background-color: #ea1e61;
+    background: linear-gradient(to right, #e2165e, #ce0048, #de024f, #d81156);
+
   }
 `;
 
@@ -248,5 +260,4 @@ const SubTitle = styled.h4`
   margin-bottom: 20px;
   font-size: 14px;
   font-weight: 400;
-  color: ${({ theme }) => theme.fontColorGray};
 `;
