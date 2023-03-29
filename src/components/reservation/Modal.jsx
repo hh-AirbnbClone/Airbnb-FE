@@ -13,8 +13,6 @@ function Modal({
   return (
     <OpenModal>
 
-
-
       <DetailCalender
         toStayCount={toStayCount}
         setOpenModal={setOpenModal}

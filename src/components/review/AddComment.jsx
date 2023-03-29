@@ -10,7 +10,7 @@ function AddComment() {
   const queryClinet = useQueryClient();
   const { id } = useParams();
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isLoading, isError } = useMutation({
     mutationFn: async (payload) => {
       console.log("작성하기", payload);
       const { data } = await axios.post(
@@ -26,6 +26,13 @@ function AddComment() {
     onSuccess: () => {
       alert("작성 완료");
       queryClinet.invalidateQueries({ queryKey: ["GET_DETAIL"] }); // GET 요청을 다시함
+    },
+    onError: (res) => {
+      if (res.response.data.statusCode == 401) {
+        alert("로그인을 해주세요.");
+      } else {
+        alert(res.response.data.message);
+      }
     },
   });
 
