@@ -14,8 +14,11 @@ const useAddMark = () => {
     async () => {
       const { data } = await axios.post(
         `http://54.180.98.74/rooms/bookmark/${id}`,
-        
+        {
+          headers: { Authorization: `Bearer ${cookies.get("token")}` },
+        }
       );
+      
       return data;
     },
     {
