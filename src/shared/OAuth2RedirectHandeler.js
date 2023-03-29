@@ -2,7 +2,6 @@
 //리다이렉트될 화면
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { cookies } from "./cookies";
 
 function OAuth2RedirectHandeler() {

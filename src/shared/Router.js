@@ -1,9 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../components/LoginModal";
-import OAuth2RedirectHandeler from "./OAuth2RedirectHandeler";
 import Detail from "../pages/Detail";
 import Home from "../pages/Home";
-
+import OAuth2RedirectHandeler from "./OAuth2RedirectHandeler";
 function Router() {
   return (
     <BrowserRouter>
