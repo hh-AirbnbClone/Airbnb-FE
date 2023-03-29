@@ -8,18 +8,17 @@ import Header from "../components/header/Header";
 import MainRooms from "../components/MainRooms";
 
 function Home() {
-  return (
-    <>
-      <Header />
+    return (
+      <>
+      <Header/>
       <StMainWrap>
-        <Filter />
-        <MainRooms />
-        <FooterMain />
+        <Filter/>
+        {/* <SearchRooms />  */}
+        <MainRooms /> 
+        <FooterMain/>
       </StMainWrap>
-    </>
-  );
-}
-
+      </>
+    );
 export default Home;
 
 export const StMainWrap = styled.div`
