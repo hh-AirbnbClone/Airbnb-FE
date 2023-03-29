@@ -22,8 +22,6 @@ function Header({ children }) {
   const handleModalClick = (e) => {
     e.stopPropagation();
   };
-  const token = cookies.get("token");
-  console.log(token);
   return (
     <StHeaderWrapper onClick={handleModalClick}>
       <StHeader>
@@ -50,8 +48,8 @@ function Header({ children }) {
         <Row>
           <StSpanBold>당신의 공간을 에어비앤비하세요</StSpanBold>
           <LanguageIcon />
-          <div onClick={() => setIsOpenModal(true)}>
-            {isOpenModal && <LoginModal setIsOpenModal={setIsOpenModal} />}
+          <div>
+            <LoginModal />
           </div>
         </Row>
       </StHeader>

@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { cookies } from "./cookies";
+import jwt_decode from "jwt-decode";
 
 function OAuth2RedirectHandeler() {
   const nav = useNavigate();
@@ -15,7 +16,11 @@ function OAuth2RedirectHandeler() {
       cookies.set("token", res.headers.authorization.substr(7), {
         path: "/",
       });
-      alert('로그인성공')
+      const payload = jwt_decode(res.headers.authorization);
+      cookies.set("profile", payload.profile, {
+        path: "/",
+      });
+      alert("로그인성공");
       nav("/");
     } catch (e) {
       alert(e);
