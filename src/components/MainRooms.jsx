@@ -44,7 +44,7 @@ const MainRooms = () => {
       <FlexGap>
         {data.map((data, index) => ( 
           <Box key={data.id} >
-            {/* <Link to={`/detail/${data.id}`}> */}
+            <Link to={`/detail/${data.id}`}>
             <Slider className="mainBoxWrap" {...settings} style={{}}>
               {data.imageList.map((imageUrl, index) => (
                 <div className="mainBox"  key={imageUrl.indexOf}>
@@ -56,7 +56,7 @@ const MainRooms = () => {
                 </div >
               ))} 
             </Slider>
-             {/* </Link> */}
+             </Link>
             <StTextWrap>
             <StPBold>{data.title}</StPBold>
             <StPBold>{data.address}</StPBold>
