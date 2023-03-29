@@ -2,8 +2,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 import { cookies } from "../../shared/cookies";
-
+import Button from "../Button";
 function AddComment() {
   const [review, setReview] = useState([]);
   const queryClinet = useQueryClient();
@@ -33,25 +34,43 @@ function AddComment() {
   };
 
   return (
-    <div>
+    <CommentWrapper>
       <div>
-        <input
+        <CommentTitle>후기 작성</CommentTitle>
+        <CommentInput
           type="text"
           value={review}
           name="review"
-          placeholder="후기"
           onChange={changeInputHandler}
         />
       </div>
-      <button
+      <Button
+        style={{
+          margin: "10px 0",
+          width: "306px",
+          height: "50px",
+          borderRadius: "8px",
+          color: "#fff",
+        }}
         onClick={() => {
           mutate(review);
         }}
       >
         작성하기
-      </button>
-    </div>
+      </Button>
+    </CommentWrapper>
   );
 }
 
 export default AddComment;
+const CommentWrapper = styled.div`
+  margin-top: 40px;
+`;
+const CommentInput = styled.input`
+  width: 300px;
+  height: 300px;
+  border-radius: 8px;
+  margin-top: 5px;
+  border: 1px solid #707070;
+`;
+const CommentTitle = styled.div``;

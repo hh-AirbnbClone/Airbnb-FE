@@ -6,9 +6,6 @@ import styled from "styled-components";
 
 function CommentList() {
   const { id } = useParams();
-  const now = new window.Date();
-  let year = now.getFullYear();
-  let month = now.getMonth();
 
   const { data, isLoading } = useQuery({
     queryKey: ["GET_DETAIL"],
@@ -23,18 +20,24 @@ function CommentList() {
   if (!data || isLoading) return <div>로딩중...</div>;
   return (
     <CommentListWrapper>
-      <ReviewCount>후기{data.data.reviewCount}개</ReviewCount>
-      {data.data.reviewList?.map((item, i) => {
-        return (
-          <RealReview key={i}>
-            <div>
-              <Name>{}</Name>
-              <Date>{`${year}년 ${month + 1}월`}</Date>
-            </div>
-            <div>{data.data.reviewList[i]}</div>
-          </RealReview>
-        );
-      })}
+      <CommentWrapper>
+        <ReviewCount>후기{data.data.reviewCount}개</ReviewCount>
+        {data.data.reviewList?.map((item, i) => {
+          return (
+            <RealReview key={i}>
+              <div>
+                <ReviewImage>
+                  <img src={item.user.profile} alt="이미지 파일" />
+                </ReviewImage>
+              </div>
+              <Date>{item.createdAt}</Date>
+              <Name>{item.user.nickname}</Name>
+              <Date>{item.review}</Date>
+
+            </RealReview>
+          );
+        })}
+      </CommentWrapper>
     </CommentListWrapper>
   );
 }
@@ -43,26 +46,41 @@ export default CommentList;
 
 const CommentListWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
   height: 640px;
   overflow-y: hidden;
   margin-top: 40px;
 `;
-const ReviewCount = styled.div``;
-const RealReview = styled.div`
+const CommentWrapper = styled.div`
   display: flex;
-  width: 50%;
-  flex-wrap: wrap;
+  flex-direction: column;
+`;
+const ReviewCount = styled.p`
+  margin: 10px 0;
+`;
+const RealReview = styled.div`
+  width: 500px;
+`;
+
+const ReviewImage = styled.div`
+  width: 50px;
+  height: 50px;
+  margin-bottom: 5px;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
 `;
 
 const Name = styled.div`
-  margin-bottom: 10px;
+  margin: 10px 0px;
   font-size: 16px;
   font-weight: 600;
 `;
 
 const Date = styled.div`
+  width: 100px;
   font-size: 14px;
   font-weight: 400;
 `;
