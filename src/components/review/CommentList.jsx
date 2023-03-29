@@ -28,11 +28,11 @@ function CommentList() {
             <RealReview key={i}>
               <div>
                 <ReviewImage>
-                  <img src={item.user.profile} alt="이미지 파일" />
+                  <img src={item.profile} alt="이미지 파일" />
                 </ReviewImage>
               </div>
               <Date>{item.createdAt}</Date>
-              <Name>{item.user.nickname}</Name>
+              <Name>{item.nickname}</Name>
               <Date>{item.review}</Date>
             </RealReview>
           );

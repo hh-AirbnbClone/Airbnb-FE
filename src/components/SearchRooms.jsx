@@ -10,6 +10,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import {IoIosArrowDropleft, IoIosArrowDropright} from "react-icons/io"
 import { Link } from 'react-router-dom';
 import {HeartIcon} from '../components/HeartIcon';
+
 function SearchRooms({ address, checkInDate, checkOutDate, guestNum }) {
   const { data: roomData, isLoading, error } = useQuery(
     ['roomsSearch', address, checkInDate, checkOutDate, guestNum],
