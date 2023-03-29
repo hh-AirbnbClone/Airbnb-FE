@@ -18,3 +18,4 @@ function LoginModal({ setIsOpen, isOpen }) {
 }
 
 export default LoginModal;
+

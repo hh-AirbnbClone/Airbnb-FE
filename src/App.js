@@ -1,12 +1,10 @@
 /*global Kakao*/
 import React from "react";
-import Router from "./shared/Router";
-import GlobalStyle from "./GlobalStyle";
+import Router from "./shared/Router";import GlobalStyle from "./GlobalStyle";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
   const queryClient = new QueryClient();
-
   return (
     <>
       <QueryClientProvider client={queryClient}>
@@ -16,7 +14,6 @@ function App() {
     </>
   );
 }
-
 export default App;
 // feat : 새로운 기능 추가
 // fix : 버그 수정

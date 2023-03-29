@@ -1,34 +1,27 @@
 import React from "react";
 import FooterMain from "../components/footer/FooterMain";
-import { StWrapperBig } from "../components/Wrapper";
-import { useQuery } from "@tanstack/react-query";
-import Slider from "react-slick";
-import { FlexGap } from "../components/Flex";
 import styled from "styled-components";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import axios from "axios";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import Filter from "../components/Flter";
-import { IoIosArrowDropleft } from "react-icons/io";
-import { IoIosArrowDropright } from "react-icons/io";
-import { TiHeartOutline } from "react-icons/ti";
-import { TiHeart } from "react-icons/ti";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+// import SearchRooms from "../components/SearchRooms";
 import Header from "../components/header/Header";
+import MainRooms from "../components/MainRooms";
+
 
 function Home() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    pauseOnHover: true,
-    dotsClass: "slick-dots",
-    nextArrow: <IoIosArrowDropright color="white" />,
-    prevArrow: <IoIosArrowDropleft color="white" />,
-  };
+    return (
+      <>
+      <Header/>
+      <StMainWrap>
+        <Filter/>
+        {/* <SearchRooms />  */}
+        <MainRooms /> 
+        <FooterMain/>
+      </StMainWrap>
+      </>
+    );
+  }
 
   const queryFn = async () => {
     const response = await axios.get("http://54.180.98.74/rooms");
@@ -114,5 +107,6 @@ export const StTextWrap = styled.div`
   padding: 1% 1% 8% 1%;
   overflow: hidden;
   box-sizing: border-box;
-`;
+
+`
 

@@ -7,7 +7,7 @@ import styled from "styled-components";
 function CommentList() {
   const { id } = useParams();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isSuccess, isError } = useQuery({
     queryKey: ["GET_DETAIL"],
     queryFn: async () => {
       const { data } = await axios.get(
@@ -15,7 +15,6 @@ function CommentList() {
       );
       return data;
     },
-    refetchOnWindowFocus: false,
   });
   if (!data || isLoading) return <div>로딩중...</div>;
   return (
@@ -33,7 +32,6 @@ function CommentList() {
               <Date>{item.createdAt}</Date>
               <Name>{item.user.nickname}</Name>
               <Date>{item.review}</Date>
-
             </RealReview>
           );
         })}

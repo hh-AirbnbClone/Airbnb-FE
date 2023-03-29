@@ -49,9 +49,12 @@ svg{
  border :1px solid black ;
 
 }
+button{
+  cursor: pointer;
+}
 .MainColor{
   color: #ff385c;
-
+  fill: #ff385c;
 }
 .leteLine{
   border-right: 1px solid #ddd;
@@ -85,8 +88,8 @@ svg{
 
 .left{right: -50% !important;}
 .right{left: -50% !important;}
-.slick-prev{left: 2% !important;z-index: 3;opacity: 0;}
-.slick-next{right:2% !important;opacity: 0;}
+.slick-prev{left: -10% !important;z-index: 3;opacity: 0.3; padding: 20% 15%;}
+.slick-next{right:-10% !important;opacity: 0.3;padding: 20% 15%;}
 .slick-prev:hover{opacity: 1; transition: all 0.3s}
 .slick-next:hover{opacity: 1; transition: all 0.3s}
 
@@ -94,24 +97,38 @@ svg{
 .slick-dots li.slick-active button:before{color: white;}
 .slick-dots li button:before{color: white; width:5px; height:5px;font-size:5px}
 .slick-dots li{width: 5px;height:5px}
-.heart{
-  width: 20px;
-  height: 20px;
+.heartWrap{
   position: absolute;
   top: 3%;
   right: 3%;
-  z-index: 3;
-  color: white;
+  z-index: 4;
+}
+/* .heartWrap input{
+  display :none;
+} */
+.heartWrap{
+  cursor: pointer;
+    width: 16px;
+    height: 16px;
+    z-index: 4;
+    color: white;
+    display: flex;
+    justify-content: center;
+
 }
 .tiheart{
   z-index: 2;
   opacity: 0.9!important;
+  fill:rgba(0,0,0,0.5);
+  color:rgba(0,0,0,0.5)
+}
 
-  fill:rgba(0,0,0,0.5)
+.heart{
+  position: absolute;
+  top: 3%;
+  right: 3%;
 }
-.paddingBottom{
-  padding-bottom: 17%;
-}
+
 `
 
 export default GlobalStyle;
