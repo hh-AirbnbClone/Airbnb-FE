@@ -22,17 +22,17 @@ function CommentList() {
   return (
     <CommentListWrapper>
       <CommentWrapper>
-        <ReviewCount>후기{data.data.reviewCount}개</ReviewCount>
+        <ReviewCount>후기<span className="bolderGray">{data.data.reviewCount}</span>개</ReviewCount>
         {data.data.reviewList?.map((item, i) => {
           return (
             <RealReview key={i}>
               <div>
                 <ReviewImage>
-                  <img src={item.user.profile} alt="이미지 파일" />
+                  <img src={item.profile} alt="이미지 파일" />
                 </ReviewImage>
               </div>
               <Date>{item.createdAt}</Date>
-              <Name>{item.user.nickname}</Name>
+              <Name>{item.nickname}</Name>
               <Date>{item.review}</Date>
             </RealReview>
           );

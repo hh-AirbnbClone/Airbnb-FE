@@ -11,9 +11,7 @@ function Header({showhRooms, setShowSearchRooms}) {
   const [isOpenModal , setIsOpenModal] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const ref = useRef();
-  // 카카오로그인 모달
-  const handleCloseModal = (e) => {
-  }
+
   // 검색 조회
   const handleSearchClick = () => {
     setShowSearch(true);
@@ -38,31 +36,23 @@ function Header({showhRooms, setShowSearchRooms}) {
     <StHeaderWrapper >
       <StHeader>
         <Logo/>
-        <div>
+        <div className='magin-left'>
       <StSerchWrapper onClick={handleSearchClick}>
         <StSpanBold className="leteLine">어디든지 </StSpanBold>
         <StSpanBold className="leteLine"> 언제든 일주일 </StSpanBold>
         <span>인원</span>
         <StSpanIconWrap>
-        <AiOutlineSearch className="MainColor" size="16" color="white"></AiOutlineSearch>
+        <AiOutlineSearch size="16" color="white"></AiOutlineSearch>
         </StSpanIconWrap>
       </StSerchWrapper>
-      
     </div>
         <Row>
           <StSpanBold>당신의 공간을 에어비앤비하세요</StSpanBold>
           <LanguageIcon/>
-          <div onClick={() => setIsOpenModal(true)}>로그인하기{isOpenModal && <LoginModal setIsOpenModal={setIsOpenModal} />}</div>
-          
         </Row>
         <LoginModal />
       </StHeader>
       <StCalendar>
-      {showSearch &&
-        <span ref={ref}>
-          {/* <SearchBarArear /> */}
-        </span>
-      }
       </StCalendar>
     </StHeaderWrapper>
     </>
@@ -85,6 +75,7 @@ const StSerchWrapper = styled.div`
  align-items: center;
  justify-content: space-between;
  padding:15px 20px;
+ margin-left : 60px; 
  border-radius: 50px;
  cursor: pointer;
   box-sizing: border-box;

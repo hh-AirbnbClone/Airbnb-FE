@@ -36,6 +36,10 @@ function LoginModal({ setIsOpen, isOpen }) {
             display: "flex",
             textAlign: "center",
             justifyContent: "center",
+            width : "140px",
+            paddingLeft : "4px",
+            paddingRight : "4px",
+            justifyContent : "space-between"
           }}
         >
           <img
@@ -43,10 +47,12 @@ function LoginModal({ setIsOpen, isOpen }) {
             alt="profile이미지"
             style={{ width: "50px", height: "50px", borderRadius: "50%" }}
           />
-          <button onClick={onLogoutBtn}>로그아웃</button>
+          <button className="button"onClick={onLogoutBtn}
+            style = {{width: "80px" }}
+          >LOGOUT</button>
         </div>
       ) : (
-        <a href={KAKAO_AUTH_URL}>카카오톡으로 시작하기</a>
+        <button className="colorKakao"><a className="colorKakao" href={KAKAO_AUTH_URL}>LOGIN</a></button>
       )}
     </div>
   );

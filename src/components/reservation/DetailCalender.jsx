@@ -49,7 +49,6 @@ const DetailCalender = ({
   const startDay = new Date(startDate);
   const endDay = new Date(endDate);
   const stayday = endDay.getDate() - startDay.getDate();
-  // console.log(stayday);
 
   return (
     <DatePickerSection>
