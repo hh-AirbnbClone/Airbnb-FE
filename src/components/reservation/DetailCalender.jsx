@@ -46,9 +46,21 @@ const DetailCalender = ({
   const checkinDay = new Date(startDate).toISOString().substring(0, 10);
   const checkoutDay = new Date(endDate).toISOString().substring(0, 10);
 
-  const startDay = new Date(startDate);
-  const endDay = new Date(endDate);
-  const stayday = endDay.getDate() - startDay.getDate();
+
+  // 날짜와 날짜 사이값
+  const getDateRange = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const result = [];
+    for (let i = start; i <= end; i.setDate(i.getDate() + 1)) {
+      result.push(i.toISOString().split("T")[0]);
+    }
+    return result;
+  };
+  
+  // 사이 날짜 구해서 배열에 담고 length로 반환
+  const stayday = getDateRange(startDate, endDate).length;
+
 
   return (
     <DatePickerSection>
