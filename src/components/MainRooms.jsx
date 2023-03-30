@@ -71,10 +71,7 @@ const MainRooms = () => {
           params: { address, checkInDate, checkOutDate, guestNum },
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(data?.data[2]);
-        console.log(data?.data[0]);
-        console.log(data?.data[1]);
-        // console.log(data);
+        
         return data;
         // 토큰이없으면 header없앰
       } else {
@@ -82,10 +79,7 @@ const MainRooms = () => {
           params: { address, checkInDate, checkOutDate, guestNum },
           // headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(data?.data[2]);
-        console.log(data?.data[0]);
-        console.log(data?.data[1]);
-        // console.log(data);
+        
         return data;
       }
     },
@@ -99,7 +93,7 @@ const MainRooms = () => {
 
   const { mutate, isLoading, isSuccess, isError } = useMutation({
     mutationFn: async (payload) => {
-      console.log(payload);
+      
       const { data: responsData } = await axios.post(
         `http://54.180.98.74/rooms/bookmark/${payload}`,
         {},

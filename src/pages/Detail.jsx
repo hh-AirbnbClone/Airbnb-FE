@@ -24,8 +24,6 @@ function Detail() {
     },
     refetchOnWindowFocus: false,
   });
-  
-  console.log(data?.data.description);
 
   if (isLoading) return <div>로딩 중...</div>;
 
@@ -66,10 +64,10 @@ function Detail() {
                     style={{
                       fontSize: "25px",
                       color: "#000",
-                      
                     }}
                   >
-                    <span className="gray">{data.data.host}</span>님이 호스팅하는 펜션
+                    <span className="gray">{data.data.host}</span>님이
+                    호스팅하는 펜션
                   </p>
                   <p
                     style={{
