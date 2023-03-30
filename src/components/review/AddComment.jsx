@@ -21,7 +21,7 @@ function AddComment() {
         }
       );
       console.log("리뷰", data.data);
-      return data;
+      return data.data;
     },
     onSuccess: () => {
       alert("작성 완료");

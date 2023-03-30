@@ -1,53 +1,63 @@
 import React from 'react'
 import { useState } from "react";
 import moment from "moment";
+import { DayPickerRangeController } from "react-dates";
 import "moment/locale/ko";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import axios from "axios";
 import Select from 'react-select';
 import { useQuery } from '@tanstack/react-query';
-import { DayPickerRangeController } from "react-dates";
 import styled from 'styled-components';
 
 const SearchBarArear = ({
   blockedDates,
-  setOpenModal,
-  toCheckinPut,
-  toCheckOut,
-  toStayCount,
+  address,
+  guestNum,
+  onChange,
+  setAddress, 
+  setGuestNum, 
 }) => {
-     
-
-  const handleCloseModal = (e) => {
-    setShowSearch(false);
-  }
-  const handleSearchClick = () => {
-    setShowSearch(true);
-  }
-
-  const [date, setDate] = useState('');
-  const [address, setAddress] = useState('주소');
-  const [guestNum, setGuestNum] = useState('하하');
-  const [showSearch, setShowSearch] = useState(false);
-  const handleAddressChange = (event) => {
-    setAddress(event.target.value);
-  };
-  const handleGuestNumChange = (event) => {
-    setGuestNum(event.target.value);
-  };
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState("startDate");
-  const closetNextBlockedDate = (target, blockedDates) => {
-    const nextBlockedDate = blockedDates
-      ?.map((date) => moment(date, "YYYY-MM-DD"))
-      .sort((date) => date.valueOf())
-      .find((date) => date.isAfter(target));
-    return nextBlockedDate;
-  };
   const blockedDate = useState(blockedDates)[0];
+
+  const [ok, setOk]=useState(false);
+
+  const currentMonth = moment();
+  const Today = moment().format().substring(0, 10);
+  const startDay = new Date(startDate);
+  const endDay = new Date(endDate);
+  const checkInDate = new Date(startDate).toISOString().substring(0, 10);
+  const checkOutDate = new Date(endDate).toISOString().substring(0, 10);
+
+  
+  const [date, setDate] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
+
+
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value);
+  };
+
+  const handleGuestNumChange = (e) => {
+    setGuestNum(e.target.value);
+  };
+
+  const handleCloseModal = (e) => {
+    setShowSearch(false);
+  }
+  
+  const handleSearchClick = () => {
+    setShowSearch(true);
+  }
+
+  function handleDateChange() {
+    onChange(checkInDate, checkOutDate);
+  }
+
   const isBlocked = (day) => {
     let result = false;
     const newDay = moment(day.format("YYYY-MM-DD"));
@@ -71,54 +81,17 @@ const SearchBarArear = ({
       return result;
     }
   };
-  const Today = moment().format().substring(0, 10);
-  const checkInDate = new Date(startDate).toISOString().substring(0, 10);
-  const checkOutDate = new Date(endDate).toISOString().substring(0, 10);
-  const startDay = new Date(startDate);
-  const endDay = new Date(endDate);
-  const stayday = endDay.getDate() - startDay.getDate();
-  const handleSearchSubmit = (e) => {
-    e.preventDefault()
-    const formData = {
-      address,
-      checkInDate,
-      checkOutDate,
-      guestNum
-    }
-    // const { address, checkInDate, checkOutDate, guestNum } = formData;
-    queryFnSearch(formData)
-  };
-  
-  const queryFnSearch = async ({
-    address, 
-    checkInDate, 
-    checkOutDate, 
-    guestNum,
-  }) => {
-    const response = await axios.get(
-      `http://54.180.98.74/rooms?address=${address}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&guestNum=${guestNum}`, 
-      {
-      params: {
-        address,
-        checkInDate,
-        checkOutDate,
-        guestNum
-      }
-    });
-    console.log(response)
-  };
-  const { data, isLoading, error } = useQuery(['roomsSearch'], queryFnSearch, {
-    enabled: false
-  });
-  
+
   return (
     <div>
 
-    <form>
+    <div>
       <select value={address} onChange={handleAddressChange}>
-        <option value="Seoul">서울</option>
-        <option value="Busan">부산</option>
-        <option value="Jeju">제주</option>
+        <option value="미국">미국</option>
+      
+        <option value="인도네시아">인도네시아</option>
+        <option value="오스트렐리아">오스트렐리아</option>
+        <option value="인도네시아">인도네시아</option>
       </select>
         <select value={guestNum} onChange={handleGuestNumChange}>
           <option value="1">1명</option>
@@ -128,19 +101,21 @@ const SearchBarArear = ({
         </select>
         <DatePickerSection>
           <DayPickerRangeController
-            focusedInput={focusedInput}
-            startDate={startDate}
-            endDate={endDate}
-            numberOfMonths={2}
-            onDatesChange={({ startDate, endDate }) => {
-              setStartDate(startDate);
-              setEndDate(endDate);
-            }}
+             focusedInput={focusedInput}
+             startDate={startDate}
+             endDate={endDate}
+             numberOfMonths={2}
+             onDatesChange={({ startDate, endDate }) => {
+               setStartDate(startDate);
+               setEndDate(endDate);
+             }}
             
             onFocusChange={(focusedInput) => {
               setFocusedInput("endDate");
             }}
+
             isDayBlocked={isBlocked}
+
             navPrev={
               <PreButton>
                 <p>저번 달</p>
@@ -153,12 +128,12 @@ const SearchBarArear = ({
             }
           />
       <TodayDate>{Today}</TodayDate>
-      <button type="submit" onClick={handleSearchSubmit}>
+      <button type="button" onClick={handleDateChange}>
     조회하기</button>
       <ClearButtonWrapper></ClearButtonWrapper>
     </DatePickerSection>
       
-    </form>
+    </div>
     </div>
   )
 }

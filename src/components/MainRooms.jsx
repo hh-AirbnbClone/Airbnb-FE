@@ -1,8 +1,8 @@
 import React from 'react'
 import { StWrapperBig } from "../components/Wrapper";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import Slider from "react-slick";
-import {FlexGap} from "../components/Flex"
 import styled from "styled-components";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -11,7 +11,41 @@ import {IoIosArrowDropleft, IoIosArrowDropright} from "react-icons/io"
 import {TiHeartOutline, TiHeart} from "react-icons/ti"
 import { Link } from 'react-router-dom';
 import {HeartIcon} from './HeartIcon';
+import {FlexGap} from "../components/Flex"
+import SearchBarArear from "../components/searchBar/SearchBarArear"
+import { useRef ,useEffect } from 'react';
 const MainRooms = () => {
+    const [isOpenModal , setIsOpenModal] = useState(false);
+    const [showSearch, setShowSearch] = useState(false);
+    const ref = useRef();
+    // prop
+    const [address, setAddress] = useState('');
+    const [guestNum, setGuestNum] = useState('');
+    const [checkInDate, setCheckInDate] = useState("");
+    const [checkOutDate, setCheckOutDate] = useState("");
+
+    function handleDateChange(inDate, outDate) {
+        setCheckInDate(inDate);
+        setCheckOutDate(outDate);
+    }
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [ok, setOk]=useState(false);
+    //캘린더모달
+    const handleClickOutside = (e) => {
+        if (ref.current && !ref.current.contains(e.target)) {
+          setShowSearch(false);
+        }
+      }
+      useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+
+    //slider
     const settings = {
         dots: true,
         infinite: true,
@@ -26,36 +60,59 @@ const MainRooms = () => {
         prevArrow: (
             <IoIosArrowDropleft color="white"/>
         ),
-      };
-        const queryFn = async () => {
-          const response = await axios.get("http://54.180.98.74/rooms");
-          return response.data;
-         
+      }; 
+
+        const { data } = useQuery({
+        // enabled:ok,
+        queryKey:['searchrooms',{address, checkInDate, checkOutDate, guestNum,}],
+        queryFn: async ()=>{
+            
+          const {data} = await axios.get("http://54.180.98.74/rooms", {
+            params: {
+              address, 
+              checkInDate, 
+              checkOutDate, 
+              guestNum,
+            },
+          })
+          console.log("payload==========>", data)
+          return data
+        },
+        onSuccess: ()=>{
+          setOk(false);
         }
-        
-        const { data, isLoading, error } = useQuery(['rooms'], queryFn, {refetchOnWindowFocus: false});
-      
-        if (isLoading) return <div>Loading...</div>;
-      
-        if (error) return <div>Error: {error.message}</div>;
+      });
+    
   return (
     
      <StWrapperBig>
-      <FlexGap>
-        {data.map((data, index) => ( 
+          <SearchBarArear
+            address={address}
+            setAddress={setAddress}
+            setGuestNum={setGuestNum}
+            checkInDate={checkInDate}
+            checkOutDate={checkOutDate}
+            guestNum={guestNum}
+            startDate={startDate}
+            endDate={endDate}
+            onChange={handleDateChange}
+        />
+
+      <GrideGap>
+        {data?.data.map((data, index) => ( 
           <Box key={data.id} >
+            <HeartIcon></HeartIcon>
             <Link to={`/detail/${data.id}`}>
-            <Slider className="mainBoxWrap" {...settings} style={{}}>
+            <Styled_Slide className="mainBoxWrap" {...settings} style={{}}>
               {data.imageList.map((imageUrl, index) => (
                 <div className="mainBox"  key={imageUrl.indexOf}>
                   <IoIosArrowDropleft className="left arrow" color="white"/>
-                  <IoIosArrowDropright className="right arrow" color="white"/>
-                    <HeartIcon></HeartIcon>
+                  <IoIosArrowDropright className="right arrow" color="white"/>                   
                   <div className="slick-dots"></div>
                   <img src={imageUrl} alt="property" />
                 </div >
               ))} 
-            </Slider>
+            </Styled_Slide>
              </Link>
             <StTextWrap>
             <StPBold>{data.title}</StPBold>
@@ -66,19 +123,35 @@ const MainRooms = () => {
             </StTextWrap>
           </Box>
         ))}
-      </FlexGap>
+      </GrideGap>
       </StWrapperBig >
     
   )
 }
 
-export default MainRooms
+export default MainRooms;
+
+export const Styled_Slide = styled(Slider)`
+	
+    .slick-list{ //얘로 크기조정 했음
+    	/* width: 240px; */
+        margin: 0 auto;
+        background-color: #f0f9ff;
+    }
+`
+
+export const GrideGap = styled.div`
+  width: 100% ;
+  display: grid;
+  grid-template-columns: 15.83% 15.83% 15.83% 15.83% 15.83% 15.83%;
+  gap: 1%;
+  margin-bottom: 22%;
+`;
 
 export const Box =styled.div`
-  width: 15%;
-  height: 30%;
-  flex: auto;
-  gap: 1%;
+    position: relative;
+    width: 100%;
+    height: 30%;
 `
 export const StPBold = styled.p`
   font-weight: 600;
@@ -100,3 +173,4 @@ export const StTextWrap = styled.div`
   overflow: hidden;
   box-sizing: border-box;
 `
+

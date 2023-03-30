@@ -60,7 +60,7 @@ function Header({showhRooms, setShowSearchRooms}) {
       <StCalendar>
       {showSearch &&
         <span ref={ref}>
-          <SearchBarArear />
+          {/* <SearchBarArear /> */}
         </span>
       }
       </StCalendar>

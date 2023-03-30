@@ -7,18 +7,19 @@ import Filter from "../components/Flter";
 import Header from "../components/header/Header";
 import MainRooms from "../components/MainRooms";
 
+
 function Home() {
     return (
       <>
       <Header/>
       <StMainWrap>
         <Filter/>
-        {/* <SearchRooms />  */}
-        <MainRooms /> 
+        <MainRooms/>
         <FooterMain/>
       </StMainWrap>
       </>
     );
+}
 export default Home;
 
 export const StMainWrap = styled.div`
