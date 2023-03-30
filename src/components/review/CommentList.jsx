@@ -22,7 +22,7 @@ function CommentList() {
   return (
     <CommentListWrapper>
       <CommentWrapper>
-        <ReviewCount>후기{data.data.reviewCount}개</ReviewCount>
+        <ReviewCount>후기<span className="bolderGray">{data.data.reviewCount}</span>개</ReviewCount>
         {data.data.reviewList?.map((item, i) => {
           return (
             <RealReview key={i}>

@@ -46,6 +46,7 @@ const DetailCalender = ({
   const checkinDay = new Date(startDate).toISOString().substring(0, 10);
   const checkoutDay = new Date(endDate).toISOString().substring(0, 10);
 
+
   // 날짜와 날짜 사이값
   const getDateRange = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -59,6 +60,7 @@ const DetailCalender = ({
   
   // 사이 날짜 구해서 배열에 담고 length로 반환
   const stayday = getDateRange(startDate, endDate).length;
+
 
   return (
     <DatePickerSection>

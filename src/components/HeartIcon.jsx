@@ -3,22 +3,23 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { cookies } from "../shared/cookies";
 import { TiHeartOutline, TiHeart } from "react-icons/ti";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient,useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
-const useAddMark = () => {
+
+export const HeartIcon = ({id}) => {
+  const [clicked, setClicked] = useState(false);
   const queryClient = useQueryClient();
   const token = cookies.get("token");
-  const { id } = useParams();
+
   const { mutate, isLoading } = useMutation(
     async () => {
       const { data } = await axios.post(
         `http://54.180.98.74/rooms/bookmark/${id}`,
         {
-          headers: { Authorization: `Bearer ${cookies.get("token")}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-      
       return data;
     },
     {
@@ -34,39 +35,22 @@ const useAddMark = () => {
     }
   );
 
-  return {
-    addMark: mutate,
-    addMarkIsLoading: isLoading,
-  };
-};
 
-export const HeartIcon = () => {
-  const [clicked, setClicked] = useState(false);
-  const { addMark, addMarkIsLoading } = useAddMark();
-
-  const handleClick = async () => {
-    try {
-      setClicked(!clicked);
-      await addMark();
-    } catch (error) {
-      console.error(error);
-      setClicked(clicked);
-      alert(error.response?.data?.message || "오류가 발생했습니다.");
-    }
-  };
+  // const handleClick = async () => {
+  //   try {
+  //     setClicked(!clicked);
+  //     await addMark();
+  //   } catch (error) {
+  //     console.error(error);
+  //     setClicked(clicked);
+  //     alert(error.response?.data?.message || "오류가 발생했습니다.");
+  //   }
+  // };
 
   return (
-    <div
-      onClick={handleClick}
-      disabled={addMarkIsLoading}
-      className="heartWrap heart"
+    <div className="heartWrap heart"
     >
-      {clicked ? (
-        <TiHeart className="MainColor" />
-      ) : (
-        <TiHeart className="tiheart" />
-      )}
-      <TiHeartOutline className="heart" />
+      
     </div>
   );
 };

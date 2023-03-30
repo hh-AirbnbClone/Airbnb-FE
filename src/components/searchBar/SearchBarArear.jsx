@@ -87,6 +87,7 @@ const SearchBarArear = ({
 
     <div>
       <select value={address} onChange={handleAddressChange}>
+        나라를 선택하세요
         <option value="미국">미국</option>
       
         <option value="인도네시아">인도네시아</option>
@@ -94,6 +95,7 @@ const SearchBarArear = ({
         <option value="인도네시아">인도네시아</option>
       </select>
         <select value={guestNum} onChange={handleGuestNumChange}>
+          인원을 선택하세요
           <option value="1">1명</option>
           <option value="2">2명</option>
           <option value="3">3명</option>
