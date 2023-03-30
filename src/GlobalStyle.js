@@ -60,7 +60,7 @@ button{
   border-right: 1px solid #ddd;
 }
 .mainBoxWrap{
-  
+  width: 100%;
 }
 .mainBox{
   position: relative;
@@ -99,9 +99,11 @@ button{
 .slick-dots li{width: 5px;height:5px}
 .heartWrap{
   position: absolute;
-  top: 3%;
+  top: 7%;
   right: 3%;
   z-index: 4;
+  overflow:hidden;
+  box-sizing: border-box;
 }
 /* .heartWrap input{
   display :none;
@@ -114,7 +116,6 @@ button{
     color: white;
     display: flex;
     justify-content: center;
-
 }
 .tiheart{
   z-index: 2;
@@ -122,13 +123,19 @@ button{
   fill:rgba(0,0,0,0.5);
   color:rgba(0,0,0,0.5)
 }
-
+.tiheart:hover{
+  color: #ff385c;
+  fill: #ff385c;
+  transition: all 0.5;
+}
 .heart{
   position: absolute;
   top: 3%;
   right: 3%;
 }
-
+img{
+  object-fit:cover
+}
 `
 
 export default GlobalStyle;

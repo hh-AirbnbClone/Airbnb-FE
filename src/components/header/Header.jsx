@@ -33,37 +33,36 @@ function Header({ showhRooms, setShowSearchRooms }) {
 
   return (
     <>
-      <StHeaderWrapper>
-        <StHeader>
-          <Logo />
-          <div>
-            <StSerchWrapper onClick={handleSearchClick}>
-              <StSpanBold className="leteLine">어디든지 </StSpanBold>
-              <StSpanBold className="leteLine"> 언제든 일주일 </StSpanBold>
-              <span>인원</span>
-              <StSpanIconWrap>
-                <AiOutlineSearch
-                  className="MainColor"
-                  size="16"
-                  color="white"
-                ></AiOutlineSearch>
-              </StSpanIconWrap>
-            </StSerchWrapper>
-          </div>
-          <Row>
-            <StSpanBold>당신의 공간을 에어비앤비하세요</StSpanBold>
-            <LanguageIcon />
-          </Row>
-          <LoginModal />
-        </StHeader>
-        <StCalendar>
-          {showSearch && (
-            <span ref={ref}>
-              <SearchBarArear />
-            </span>
-          )}
-        </StCalendar>
-      </StHeaderWrapper>
+    <StHeaderWrapper >
+      <StHeader>
+        <Logo/>
+        <div>
+      <StSerchWrapper onClick={handleSearchClick}>
+        <StSpanBold className="leteLine">어디든지 </StSpanBold>
+        <StSpanBold className="leteLine"> 언제든 일주일 </StSpanBold>
+        <span>인원</span>
+        <StSpanIconWrap>
+        <AiOutlineSearch className="MainColor" size="16" color="white"></AiOutlineSearch>
+        </StSpanIconWrap>
+      </StSerchWrapper>
+      
+    </div>
+        <Row>
+          <StSpanBold>당신의 공간을 에어비앤비하세요</StSpanBold>
+          <LanguageIcon/>
+          <div onClick={() => setIsOpenModal(true)}>로그인하기{isOpenModal && <LoginModal setIsOpenModal={setIsOpenModal} />}</div>
+          
+        </Row>
+        <LoginModal />
+      </StHeader>
+      <StCalendar>
+      {showSearch &&
+        <span ref={ref}>
+          {/* <SearchBarArear /> */}
+        </span>
+      }
+      </StCalendar>
+    </StHeaderWrapper>
     </>
   );
 }
