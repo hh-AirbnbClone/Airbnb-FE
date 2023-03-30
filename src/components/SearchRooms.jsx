@@ -1,3 +1,4 @@
+
 // import queryFnSearch from '../components/header/Header'
 // import React from 'react'
 // import { StWrapperBig } from "../components/Wrapper";
@@ -71,7 +72,7 @@
 //   // const roomdat = {address, checkInDate, checkOutDate, guestNum,title,}
  
 //   console.log('data.data=============>', data.data)//address: undefinedcheckInDate: undefinedcheckOutDate: undefinedguestNum: 
- 
+
 
 //   return (
 //     <StWrapperBig>

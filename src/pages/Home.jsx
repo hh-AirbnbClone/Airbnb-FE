@@ -9,9 +9,9 @@ import MainRooms from "../components/MainRooms";
 
 
 function Home() {
-    return (
-      <>
-      <Header/>
+  return (
+    <>
+      <Header />
       <StMainWrap>
         <Filter/>
         <MainRooms/>

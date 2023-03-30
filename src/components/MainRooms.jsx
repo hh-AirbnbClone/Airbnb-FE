@@ -1,12 +1,12 @@
-import React from 'react'
+import React from "react";
 import { StWrapperBig } from "../components/Wrapper";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Slider from "react-slick";
+import { FlexGap } from "../components/Flex";
 import styled from "styled-components";
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import axios from "axios";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import {IoIosArrowDropleft, IoIosArrowDropright} from "react-icons/io"
 import {TiHeartOutline, TiHeart} from "react-icons/ti"
 import { Link } from 'react-router-dom';
@@ -114,12 +114,16 @@ const MainRooms = () => {
               ))} 
             </Styled_Slide>
              </Link>
+
             <StTextWrap>
-            <StPBold>{data.title}</StPBold>
-            <StPBold>{data.address}</StPBold>
-            <StPGray>{data.description}</StPGray>
-            <StPGray>최대 인원 {data.maxGuest}</StPGray>
-            <StPBold className="paddingBottom">₩ {data.price}<StSpanGray>/박</StSpanGray></StPBold>
+              <StPBold>{data.title}</StPBold>
+              <StPBold>{data.address}</StPBold>
+              <StPGray>{data.description}</StPGray>
+              <StPGray>최대 인원 {data.maxGuest}</StPGray>
+              <StPBold className="paddingBottom">
+                ₩ {data.price}
+                <StSpanGray>/박</StSpanGray>
+              </StPBold>
             </StTextWrap>
           </Box>
         ))}
@@ -153,24 +157,24 @@ export const Box =styled.div`
     width: 100%;
     height: 30%;
 `
+
 export const StPBold = styled.p`
   font-weight: 600;
   padding: 1% 0;
-`
+`;
 export const StPGray = styled.p`
   color: gray;
   padding: 2% 0;
-`
+`;
 export const StSpanGray = styled.span`
   color: gray;
-  font-weight:100;
-`
+  font-weight: 100;
+`;
 export const StMainWrap = styled.div`
   position: relative;
-`
+`;
 export const StTextWrap = styled.div`
   padding: 1% 1% 8% 1%;
   overflow: hidden;
   box-sizing: border-box;
 `
-
