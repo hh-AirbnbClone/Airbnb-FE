@@ -6,14 +6,18 @@ import Slider from "react-slick";
 import styled from "styled-components";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import {IoIosArrowDropleft, IoIosArrowDropright} from "react-icons/io"
 import {TiHeartOutline, TiHeart} from "react-icons/ti"
 import { Link } from 'react-router-dom';
-import {HeartIcon} from './HeartIcon';
+
 import {FlexGap} from "../components/Flex"
 import SearchBarArear from "../components/searchBar/SearchBarArear"
 import { useRef ,useEffect } from 'react';
+import { cookies } from "../shared/cookies";
+import { useMutation,useQueryClient } from "@tanstack/react-query";
+
 const MainRooms = () => {
     const [isOpenModal , setIsOpenModal] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
@@ -23,7 +27,6 @@ const MainRooms = () => {
     const [guestNum, setGuestNum] = useState('');
     const [checkInDate, setCheckInDate] = useState("");
     const [checkOutDate, setCheckOutDate] = useState("");
-
     function handleDateChange(inDate, outDate) {
         setCheckInDate(inDate);
         setCheckOutDate(outDate);
@@ -31,6 +34,8 @@ const MainRooms = () => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [ok, setOk]=useState(false);
+    const [clicked, setClicked] = useState(false);
+    const token = cookies.get("token");
     //캘린더모달
     const handleClickOutside = (e) => {
         if (ref.current && !ref.current.contains(e.target)) {
@@ -63,10 +68,8 @@ const MainRooms = () => {
       }; 
 
         const { data } = useQuery({
-        // enabled:ok,
         queryKey:['searchrooms',{address, checkInDate, checkOutDate, guestNum,}],
         queryFn: async ()=>{
-            
           const {data} = await axios.get("http://54.180.98.74/rooms", {
             params: {
               address, 
@@ -75,13 +78,40 @@ const MainRooms = () => {
               guestNum,
             },
           })
-          console.log("payload==========>", data)
+          console.log(data?.data[2])
+          console.log(data?.data[0])
+          console.log(data?.data[1])
           return data
         },
         onSuccess: ()=>{
           setOk(false);
         }
       });
+
+      const queryClient = useQueryClient();
+      
+      const { mutate, isLoading, isSuccess, isError } = useMutation({
+        mutationFn: async (payload) => {
+          console.log(payload)
+          const {data :responsData}= await axios.post(
+            `http://54.180.98.74/rooms/bookmark/${payload}`,{},{headers: { Authorization: `Bearer ${token}` },}
+          );
+          return responsData;
+        },
+         onSuccess: (res) => {
+          
+          // setOk(false);
+        alert(res.message);
+        queryClient.invalidateQueries("bookmarks");
+      },
+      onError: (error) => {
+        console.error(error);
+        alert('로그인을 해주세요.');
+      },
+      retry: 0,
+      }
+      );
+
     
   return (
     
@@ -101,7 +131,16 @@ const MainRooms = () => {
       <GrideGap>
         {data?.data.map((data, index) => ( 
           <Box key={data.id} >
-            <HeartIcon></HeartIcon>
+            <HeartIcon className="heartWrap heart" onClick={()=> {
+        mutate(data.id)
+      }}>
+            {data.bookmark ? (
+        <TiHeart className="MainColor heart" />
+      ) : (
+        <TiHeart className="tiheart heart" />
+      )}
+      {/* <TiHeartOutline className="heart" /> */}
+            </HeartIcon>
             <Link to={`/detail/${data.id}`}>
             <Styled_Slide className="mainBoxWrap" {...settings} style={{}}>
               {data.imageList.map((imageUrl, index) => (
@@ -174,3 +213,7 @@ export const StTextWrap = styled.div`
   box-sizing: border-box;
 `
 
+const HeartIcon = styled.div`
+    width:50px;
+    height:50px;
+`
