@@ -13,9 +13,9 @@ function OAuth2RedirectHandeler() {
 
   const kakaoLogin = async () => {
     try {
-      const res = await axios.get(
-        `http://54.180.98.74/auth/login?code=${code}`
-      );
+      const res = await axios.get(`http://54.180.98.74/auth/login?code=${code}`);
+
+
       cookies.set("token", res.headers.authorization.substr(7), {
         path: "/",
       });
