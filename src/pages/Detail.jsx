@@ -24,8 +24,6 @@ function Detail() {
     },
     refetchOnWindowFocus: false,
   });
-  
-  console.log(data?.data.description);
 
   if (isLoading) return <div>로딩 중...</div>;
 
@@ -68,7 +66,8 @@ function Detail() {
                       color: "#000",
                     }}
                   >
-                    {data.data.host}님이 호스팅하는 펜션
+                    <span className="gray">{data.data.host}</span>님이
+                    호스팅하는 펜션
                   </p>
                   <p
                     style={{
@@ -145,8 +144,8 @@ function Detail() {
           </MainRight>
         </RoomMain>
         <CommentWrapper>
-          <CommentList />
           <AddComment />
+          <CommentList />
         </CommentWrapper>
       </StWrapperSmall>
       <Footer />
@@ -163,6 +162,7 @@ const DetailWrapper = styled.div`
 const Title = styled.div`
   font-size: 35px;
   margin: 30px 0;
+  font-weight: 900;
 `;
 const DetailDescription = styled.div`
   border-bottom: 1px solid lightgray;
@@ -221,7 +221,7 @@ const RoomMain = styled.div`
 `;
 const MainLeft = styled.div`
   width: 626.5px;
-  padding-top: 48px;
+  padding: 48px 0;
 `;
 
 const MainRight = styled.div`
@@ -234,11 +234,10 @@ const MainRight = styled.div`
 
 const RoomIcon = styled.div`
   display: flex;
+  height: 60px;
   align-items: center;
   margin-bottom: 28px;
   img {
-    width: 50px;
-    height: 30px;
     margin-right: 10px;
   }
   div span {
@@ -260,5 +259,7 @@ const RoomIconWrap = styled.div`
 const RoomAmenity = styled.div``;
 const CommentWrapper = styled.div`
   display: flex;
+  width: 100%;
   justify-content: space-between;
+  flex-direction: column;
 `;

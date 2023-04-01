@@ -12,7 +12,6 @@ function AddComment() {
 
   const { mutate, isLoading, isError } = useMutation({
     mutationFn: async (payload) => {
-      console.log("작성하기", payload);
       const { data } = await axios.post(
         `http://54.180.98.74/rooms/details/review/${id}`,
         { review: payload },
@@ -20,8 +19,7 @@ function AddComment() {
           headers: { Authorization: `Bearer ${cookies.get("token")}` },
         }
       );
-      console.log("리뷰", data.data);
-      return data;
+      return data.data;
     },
     onSuccess: () => {
       alert("작성 완료");
@@ -42,22 +40,23 @@ function AddComment() {
 
   return (
     <CommentWrapper>
-      <div>
+      <CommentBox>
         <CommentTitle>후기 작성</CommentTitle>
         <CommentInput
+          width={"100%"}
           type="text"
           value={review}
           name="review"
           onChange={changeInputHandler}
         />
-      </div>
-      <Button
+        <Button
         style={{
           margin: "10px 0",
-          width: "306px",
-          height: "50px",
-          borderRadius: "8px",
+          width: "140px",
+          height: "40px",
+          borderRadius: "15px",
           color: "#fff",
+          float: "right"
         }}
         onClick={() => {
           mutate(review);
@@ -65,6 +64,8 @@ function AddComment() {
       >
         작성하기
       </Button>
+      </CommentBox>
+      
     </CommentWrapper>
   );
 }
@@ -72,12 +73,27 @@ function AddComment() {
 export default AddComment;
 const CommentWrapper = styled.div`
   margin-top: 40px;
+  padding: 24px;
+border-radius: 14px;
+box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
 `;
 const CommentInput = styled.input`
-  width: 300px;
-  height: 300px;
+  padding: 1% 3%;
+  width: 100%;
+  margin-top: 30px !important;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-size: 20px;
   border-radius: 8px;
   margin-top: 5px;
   border: 1px solid #707070;
 `;
-const CommentTitle = styled.div``;
+const CommentTitle = styled.div`
+  font-weight: 900;
+`;
+
+const CommentBox = styled.div`
+display: "flex",
+
+`
