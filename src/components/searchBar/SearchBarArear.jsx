@@ -9,6 +9,7 @@ import axios from "axios";
 import Select from 'react-select';
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
+import { useRef ,useEffect } from 'react';
 
 const SearchBarArear = ({
   blockedDates,
@@ -17,6 +18,7 @@ const SearchBarArear = ({
   onChange,
   setAddress, 
   setGuestNum, 
+  setIsOpenModal
 }) => {
 
   const [startDate, setStartDate] = useState(null);
@@ -31,8 +33,8 @@ const SearchBarArear = ({
   const startDay = new Date(startDate);
   const endDay = new Date(endDate);
   const checkInDate = new Date(startDate).toISOString().substring(0, 10);
-  const checkOutDate = new Date(endDate).toISOString().substring(0, 10);
-
+  const checkOutDate = new Date(endDate).toISOString().substring(0, 10);    
+  
   
   const [date, setDate] = useState('');
   const [showSearch, setShowSearch] = useState(false);
@@ -57,6 +59,18 @@ const SearchBarArear = ({
   function handleDateChange() {
     onChange(checkInDate, checkOutDate);
   }
+  const modalRef = useRef()
+  useEffect(()=>{
+    const handleClickOutside=(event)=>{
+      if(modalRef.current && !modalRef.current.contains(event.target)){
+        setIsOpenModal(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+      return () =>{
+        document.removeEventListener('mousedown', handleClickOutside)
+      }
+  },[modalRef,setIsOpenModal])
 
   const isBlocked = (day) => {
     let result = false;
@@ -83,9 +97,10 @@ const SearchBarArear = ({
   };
 
   return (
-    <div>
 
-    <div>
+
+    <div className='Homecalendar' ref={modalRef}>
+      <div className='selectWrap'>
       <select value={address} onChange={handleAddressChange}>
         나라를 선택하세요
         <option value="미국">미국</option>
@@ -101,8 +116,12 @@ const SearchBarArear = ({
           <option value="3">3명</option>
           <option value="4">4명</option>
         </select>
-        <DatePickerSection>
+      </div>
+        <DatePickerSection
+         
+        >
           <DayPickerRangeController
+           
              focusedInput={focusedInput}
              startDate={startDate}
              endDate={endDate}
@@ -136,7 +155,7 @@ const SearchBarArear = ({
     </DatePickerSection>
       
     </div>
-    </div>
+
   )
 }
 
@@ -153,7 +172,6 @@ const DatePickerSection = styled.section`
   background-color: white;
   border-radius: 12px;
   font-family: sans-serif;
-  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
   .DayPicker__withBorder {
     border-radius: 12px;
   }

@@ -14,14 +14,15 @@ import { Link } from 'react-router-dom';
 
 import {FlexGap} from "../components/Flex"
 import SearchBarArear from "../components/searchBar/SearchBarArear"
-import { useRef ,useEffect } from 'react';
 import { cookies } from "../shared/cookies";
 import { useMutation,useQueryClient } from "@tanstack/react-query";
 
-const MainRooms = () => {
-    const [isOpenModal , setIsOpenModal] = useState(false);
-    const [showSearch, setShowSearch] = useState(false);
-    const ref = useRef();
+const MainRooms = ({showSearch,isOpenModal,setIsOpenModal }) => {
+    //const [isOpenModal , setIsOpenModal] = useState(false);
+    //const modalRef = useRef();
+    const [isOpen, setIsOpen] = useState(false);
+
+
     // prop
     const [address, setAddress] = useState('');
     const [guestNum, setGuestNum] = useState('');
@@ -31,23 +32,19 @@ const MainRooms = () => {
         setCheckInDate(inDate);
         setCheckOutDate(outDate);
     }
+  
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [ok, setOk]=useState(false);
     const [clicked, setClicked] = useState(false);
     const token = cookies.get("token");
     //캘린더모달
-    const handleClickOutside = (e) => {
-        if (ref.current && !ref.current.contains(e.target)) {
-          setShowSearch(false);
-        }
-      }
-      useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-          document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
+
+    // useEffect(() => {
+    //     if(isOpenModal && setIsOpenModal){
+    //       modalRef.current.focus();
+    //     }
+    // }, [isOpen, modalRef]);
 
 
     //slider
@@ -66,17 +63,11 @@ const MainRooms = () => {
             <IoIosArrowDropleft color="white"/>
         ),
       }; 
-
-        const { data } = useQuery({
+      const { data } = useQuery({
         queryKey:['searchrooms',{address, checkInDate, checkOutDate, guestNum,}],
         queryFn: async ()=>{
           const {data} = await axios.get("http://54.180.98.74/rooms", {
-            params: {
-              address, 
-              checkInDate, 
-              checkOutDate, 
-              guestNum,
-            },
+
           })
           console.log(data?.data[2])
           console.log(data?.data[0])
@@ -84,7 +75,7 @@ const MainRooms = () => {
           return data
         },
         onSuccess: ()=>{
-          setOk(false);
+          // setOk(false);
         }
       });
 
@@ -110,14 +101,14 @@ const MainRooms = () => {
       },
       retry: 0,
       }
-      );
-
-    
+      );   
   return (
     
-     <StWrapperBig>
-          <SearchBarArear
-            address={address}
+     <StWrapperBig >
+      
+      {isOpenModal && (
+            <SearchBarArear 
+            address={address} 
             setAddress={setAddress}
             setGuestNum={setGuestNum}
             checkInDate={checkInDate}
@@ -126,7 +117,9 @@ const MainRooms = () => {
             startDate={startDate}
             endDate={endDate}
             onChange={handleDateChange}
+            setIsOpenModal={setIsOpenModal}
         />
+          )}
 
       <GrideGap>
         {data?.data.map((data, index) => ( 

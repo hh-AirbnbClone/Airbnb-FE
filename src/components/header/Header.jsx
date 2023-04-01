@@ -7,29 +7,12 @@ import { Row } from "../Flex";
 import { AiOutlineSearch } from 'react-icons/ai';
 import SearchBarArear from"../../components/searchBar/SearchBarArear"
 
-function Header({showhRooms, setShowSearchRooms}) {
-  const [isOpenModal , setIsOpenModal] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
-  const ref = useRef();
+function Header({showhRooms, setShowSearchRooms,setShowSearch, showSearch,setIsOpenModal}) {
 
   // 검색 조회
   const handleSearchClick = () => {
-    setShowSearch(true);
+    setIsOpenModal(true);
   }
-
-  const handleClickOutside = (e) => {
-    if (ref.current && !ref.current.contains(e.target)) {
-      setShowSearch(false);
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
 
   return (
     <>
