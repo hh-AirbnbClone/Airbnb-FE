@@ -12,55 +12,33 @@ import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
 import { TiHeartOutline, TiHeart } from "react-icons/ti";
 import { Link } from "react-router-dom";
 
-import { FlexGap } from "../components/Flex";
-import SearchBarArear from "../components/searchBar/SearchBarArear";
-import { useRef, useEffect } from "react";
+
+import {FlexGap} from "../components/Flex"
 import { cookies } from "../shared/cookies";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const MainRooms = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
-  const ref = useRef();
-  // prop
-  const [address, setAddress] = useState("");
-  const [guestNum, setGuestNum] = useState("");
-  const [checkInDate, setCheckInDate] = useState("");
-  const [checkOutDate, setCheckOutDate] = useState("");
-  function handleDateChange(inDate, outDate) {
-    setCheckInDate(inDate);
-    setCheckOutDate(outDate);
-  }
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [ok, setOk] = useState(false);
-  const [clicked, setClicked] = useState(false);
-  const token = cookies.get("token");
-  //캘린더모달
-  const handleClickOutside = (e) => {
-    if (ref.current && !ref.current.contains(e.target)) {
-      setShowSearch(false);
-    }
-  };
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+const MainRooms = ({showSearch,isOpenModal,setIsOpenModal }) => {
+    //const [isOpenModal , setIsOpenModal] = useState(false);
+    //const modalRef = useRef();
+    const [isOpen, setIsOpen] = useState(false);
 
-  //slider
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    pauseOnHover: true,
-    dotsClass: "slick-dots",
-    nextArrow: <IoIosArrowDropright color="white" />,
-    prevArrow: <IoIosArrowDropleft color="white" />,
-  };
+
+    // prop
+    const [address, setAddress] = useState('');
+    const [guestNum, setGuestNum] = useState('');
+    const [checkInDate, setCheckInDate] = useState("");
+    const [checkOutDate, setCheckOutDate] = useState("");
+    function handleDateChange(inDate, outDate) {
+        setCheckInDate(inDate);
+        setCheckOutDate(outDate);
+    }
+  
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [ok, setOk]=useState(false);
+    const [clicked, setClicked] = useState(false);
+    const token = cookies.get("token");
+    //캘린더모달
 
   const { data } = useQuery({
     queryKey: ["searchrooms", { address, checkInDate, checkOutDate, guestNum }],
@@ -84,49 +62,80 @@ const MainRooms = () => {
       }
     },
 
-    onSuccess: () => {
-      setOk(false);
-    },
-  });
+    //slider
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        pauseOnHover : true,	
+        dotsClass : "slick-dots", 
+        nextArrow: (
+            <IoIosArrowDropright  color="white"/>
+        ),
+        prevArrow: (
+            <IoIosArrowDropleft color="white"/>
+        ),
+      }; 
+      const { data } = useQuery({
+        queryKey:['searchrooms',{address, checkInDate, checkOutDate, guestNum,}],
+        queryFn: async ()=>{
+          const {data} = await axios.get("http://54.180.98.74/rooms", {
 
-  const queryClient = useQueryClient();
+          })
+          console.log(data?.data[2])
+          console.log(data?.data[0])
+          console.log(data?.data[1])
+          return data
+        },
+        onSuccess: ()=>{
+          // setOk(false);
+        }
+      });
+
 
   const { mutate, isLoading, isSuccess, isError } = useMutation({
     mutationFn: async (payload) => {
       
-      const { data: responsData } = await axios.post(
-        `http://54.180.98.74/rooms/bookmark/${payload}`,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      return responsData;
-    },
-    onSuccess: (res) => {
-      // setOk(false);
-      alert(res.message);
-      queryClient.invalidateQueries("bookmarks");
-    },
-    onError: (error) => {
-      console.error(error);
-      alert("로그인을 해주세요.");
-    },
-    retry: 0,
-  });
-
+      const { mutate, isLoading, isSuccess, isError } = useMutation({
+        mutationFn: async (payload) => {
+          console.log(payload)
+          const {data :responsData}= await axios.post(
+            `http://54.180.98.74/rooms/bookmark/${payload}`,{},{headers: { Authorization: `Bearer ${token}` },}
+          );
+          return responsData;
+        },
+         onSuccess: (res) => {
+          
+          // setOk(false);
+        alert(res.message);
+        queryClient.invalidateQueries("bookmarks");
+      },
+      onError: (error) => {
+        console.error(error);
+        alert('로그인을 해주세요.');
+      },
+      retry: 0,
+      }
+      );   
   return (
-    <StWrapperBig>
-      <SearchBarArear
-        address={address}
-        setAddress={setAddress}
-        setGuestNum={setGuestNum}
-        checkInDate={checkInDate}
-        checkOutDate={checkOutDate}
-        guestNum={guestNum}
-        startDate={startDate}
-        endDate={endDate}
-        onChange={handleDateChange}
-      />
-
+     <StWrapperBig >
+      
+      {isOpenModal && (
+            <SearchBarArear 
+            address={address} 
+            setAddress={setAddress}
+            setGuestNum={setGuestNum}
+            checkInDate={checkInDate}
+            checkOutDate={checkOutDate}
+            guestNum={guestNum}
+            startDate={startDate}
+            endDate={endDate}
+            onChange={handleDateChange}
+            setIsOpenModal={setIsOpenModal}
+        />
+          )}
       <GrideGap>
         {data?.data.map((data, index) => (
           <Box key={data.id}>

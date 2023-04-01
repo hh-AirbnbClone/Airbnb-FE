@@ -2,6 +2,7 @@
 import styled from "styled-components";
 
 export const StWrapperBig = styled.div`
+  position: relative;
   margin: 0 auto;
   width: 1320px;
   overflow: hidden;

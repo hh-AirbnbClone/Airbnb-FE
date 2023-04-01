@@ -70,9 +70,9 @@ button{
   overflow: hidden;
   img{
     position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
   }
   
 }
@@ -153,7 +153,7 @@ button{
   padding: auto 10%
 }
 .magin-left{
-  margin-left: 10%;
+  margin-left: 17%;
 }
 .gray{
   color: rgb(112, 112, 112);
@@ -163,27 +163,41 @@ button{
   color: gray
 }
 .colorKakao{
+  width: 80px;
+  height: 40px;
   font-weight: 900;
   color : white;
   background-color: #f7E600;
-  font-weight: 600;
   color:#333;
   padding: auto 10%
   
 }
 select {
-  width: 200px; /* 원하는 너비설정 */
+  width: 47%;
   padding: .8em .5em; /* 여백으로 높이 설정 */
   font-family: inherit;  /* 폰트 상속 */
   background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */  
-  border: 1px solid #999; 
+  border: 1px solid #ddd; 
   -webkit-appearance: none; /* 네이티브 외형 감추기 */
   -moz-appearance: none;
   appearance: none;
   border-radius: 20px;
-  margin-right: 10px;
-}
+  padding-left: 3%;
 
+}
+.Homecalendar{
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  
+}
+.selectWrap{
+  display:flex;
+  margin-bottom: 20px;
+  width: 618px;
+  justify-content: space-between;
+}
 `
 
 export default GlobalStyle;
