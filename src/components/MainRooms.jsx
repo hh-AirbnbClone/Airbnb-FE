@@ -9,10 +9,9 @@ import "slick-carousel/slick/slick-theme.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
-import { TiHeartOutline, TiHeart } from "react-icons/ti";
+import {TiHeart } from "react-icons/ti";
 import { Link } from "react-router-dom";
-
-
+import SearchBarArear from "../components/searchBar/SearchBarArear"
 import {FlexGap} from "../components/Flex"
 import { cookies } from "../shared/cookies";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -40,6 +39,19 @@ const MainRooms = ({showSearch,isOpenModal,setIsOpenModal }) => {
     const token = cookies.get("token");
     //캘린더모달
 
+  //slider
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    pauseOnHover: true,
+    dotsClass: "slick-dots",
+    nextArrow: <IoIosArrowDropright color="white" />,
+    prevArrow: <IoIosArrowDropleft color="white" />,
+  };
+
   const { data } = useQuery({
     queryKey: ["searchrooms", { address, checkInDate, checkOutDate, guestNum }],
     queryFn: async () => {
@@ -62,63 +74,34 @@ const MainRooms = ({showSearch,isOpenModal,setIsOpenModal }) => {
       }
     },
 
-    //slider
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        pauseOnHover : true,	
-        dotsClass : "slick-dots", 
-        nextArrow: (
-            <IoIosArrowDropright  color="white"/>
-        ),
-        prevArrow: (
-            <IoIosArrowDropleft color="white"/>
-        ),
-      }; 
-      const { data } = useQuery({
-        queryKey:['searchrooms',{address, checkInDate, checkOutDate, guestNum,}],
-        queryFn: async ()=>{
-          const {data} = await axios.get("http://54.180.98.74/rooms", {
+    onSuccess: () => {
+      setOk(false);
+    },
+  });
 
-          })
-          console.log(data?.data[2])
-          console.log(data?.data[0])
-          console.log(data?.data[1])
-          return data
-        },
-        onSuccess: ()=>{
-          // setOk(false);
-        }
-      });
-
+  const queryClient = useQueryClient();
 
   const { mutate, isLoading, isSuccess, isError } = useMutation({
     mutationFn: async (payload) => {
       
-      const { mutate, isLoading, isSuccess, isError } = useMutation({
-        mutationFn: async (payload) => {
-          console.log(payload)
-          const {data :responsData}= await axios.post(
-            `http://54.180.98.74/rooms/bookmark/${payload}`,{},{headers: { Authorization: `Bearer ${token}` },}
-          );
-          return responsData;
-        },
-         onSuccess: (res) => {
-          
-          // setOk(false);
-        alert(res.message);
-        queryClient.invalidateQueries("bookmarks");
-      },
-      onError: (error) => {
-        console.error(error);
-        alert('로그인을 해주세요.');
-      },
-      retry: 0,
-      }
-      );   
+      const { data: responsData } = await axios.post(
+        `http://54.180.98.74/rooms/bookmark/${payload}`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      return responsData;
+    },
+    onSuccess: (res) => {
+      // setOk(false);
+      alert(res.message);
+      queryClient.invalidateQueries("bookmarks");
+    },
+    onError: (error) => {
+      console.error(error);
+      alert("로그인을 해주세요.");
+    },
+    retry: 0,
+  });
   return (
      <StWrapperBig >
       
@@ -153,7 +136,7 @@ const MainRooms = ({showSearch,isOpenModal,setIsOpenModal }) => {
               {/* <TiHeartOutline className="heart" /> */}
             </HeartIcon>
             <Link to={`/detail/${data.id}`}>
-              <Styled_Slide className="mainBoxWrap" {...settings} style={{}}>
+              <div className="mainBoxWrap" {...settings} style={{}}>
                 {data.imageList.map((imageUrl, index) => (
                   <div className="mainBox" key={imageUrl.indexOf}>
                     <IoIosArrowDropleft className="left arrow" color="white" />
@@ -165,7 +148,7 @@ const MainRooms = ({showSearch,isOpenModal,setIsOpenModal }) => {
                     <img src={imageUrl} alt="property" />
                   </div>
                 ))}
-              </Styled_Slide>
+              </div>
             </Link>
             <StTextWrap>
               <StPBold>{data.title}</StPBold>
@@ -185,15 +168,6 @@ const MainRooms = ({showSearch,isOpenModal,setIsOpenModal }) => {
 };
 
 export default MainRooms;
-
-export const Styled_Slide = styled(Slider)`
-  .slick-list {
-    //얘로 크기조정 했음
-    /* width: 240px; */
-    margin: 0 auto;
-    background-color: #f0f9ff;
-  }
-`;
 
 export const GrideGap = styled.div`
   width: 100%;

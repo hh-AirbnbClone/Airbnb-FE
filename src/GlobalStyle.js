@@ -195,6 +195,7 @@ select {
 .selectWrap{
   display:flex;
   margin-bottom: 20px;
+  margin-top: 20px;
   width: 618px;
   justify-content: space-between;
 }

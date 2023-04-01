@@ -99,8 +99,9 @@ const SearchBarArear = ({
   return (
 
 
-    <div className='Homecalendar' ref={modalRef}>
-      <div className='selectWrap'>
+    <div className='Homecalendar' >
+      <div  ref={modalRef}>
+      <div className='selectWrap' >
       <select value={address} onChange={handleAddressChange}>
         나라를 선택하세요
         <option value="미국">미국</option>
@@ -153,6 +154,7 @@ const SearchBarArear = ({
     조회하기</button>
       <ClearButtonWrapper></ClearButtonWrapper>
     </DatePickerSection>
+      </div>
       
     </div>
 
